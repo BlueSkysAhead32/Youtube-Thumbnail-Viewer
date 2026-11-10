@@ -1,0 +1,1 @@
+#This is where the test images from the draft image will be stored before they are saved on the computer

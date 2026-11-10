@@ -51,5 +51,5 @@ Minimal Viable Outcome:
 
 - Week 4 (Final)
   1. Decide what is and isn't going into the project (I can't figure out x, so scrap)
-  2. Make placeholdwer window look pleasing
+  2. Make placeholder window look pleasing
   3. 
