@@ -37,29 +37,42 @@ def front_page_test_maker(template, thumbnail):
     return output
 
 def main():
-    templ_img_path = ["C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemplateFiles\\YTVTemplate-1.png", 
-                     "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemplateFiles\\YTVTemplate-2.png",
-                     "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemplateFiles\\YTVTemplate-3.png",
-                     "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemplateFiles\\YTVTemplate-4.png"
-                     ]
-    central_img_path = "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\ClouddropUpdateVideo_1Thumbnail.png"
+    # templ_img_path = ["C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemplateFiles\\YTVTemplate-1.png", 
+    #                  "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemplateFiles\\YTVTemplate-2.png",
+    #                  "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemplateFiles\\YTVTemplate-3.png",
+    #                  "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemplateFiles\\YTVTemplate-4.png"
+    #                  ]
+    # central_img_path = "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\ClouddropUpdateVideo_1Thumbnail.png"
 
-    number = 0
-    for file in templ_img_path:
-        number +=1
-        templname, ext = os.path.splitext(file)
-        draftname, ext = os.path.splitext(central_img_path)
-        newpathname = templname.replace("\\TemplateFiles", "\\TemporaryImageStorage")
-        filename = draftname.split("\\")
-        newername = newpathname.replace(f"YTVTemplate-{number}", filename[-1])
-        with (Image.open(file)) as template, (Image.open(central_img_path)) as thumbnail:
-            if number <= 2:
-                output = sidebar_test_maker(template, thumbnail)
-                output.save(f"{newername}testV{number}{ext}")
-            if number > 2:
-                output = front_page_test_maker(template, thumbnail)
-                output.save(f"{newername}testV{number}{ext}")
+    # number = 0
+    # for file in templ_img_path:
+    #     number +=1
+    #     templname, ext = os.path.splitext(file)
+    #     draftname, ext = os.path.splitext(central_img_path)
+    #     newpathname = templname.replace("\\TemplateFiles", "\\TemporaryImageStorage")
+    #     filename = draftname.split("\\")
+    #     newername = newpathname.replace(f"YTVTemplate-{number}", filename[-1])
+    #     with (Image.open(file)) as template, (Image.open(central_img_path)) as thumbnail:
+    #         if number <= 2:
+    #             output = sidebar_test_maker(template, thumbnail)
+    #             output.save(f"{newername}testV{number}{ext}")
+    #         if number > 2:
+    #             output = front_page_test_maker(template, thumbnail)
+    #             output.save(f"{newername}testV{number}{ext}")
     
+    pygame.init()
+    pygame.display.set_caption("Youtube Thumbnail Viewer")
+    resolution = (800, 600)
+    screen = pygame.display.set_mode(resolution)
+    clock = pygame.time.Clock()
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill("black")
+        pygame.display.flip()
+        dt = clock.tick(12)
 
 
 if __name__ == "__main__":
