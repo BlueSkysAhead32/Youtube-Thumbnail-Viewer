@@ -1,4 +1,4 @@
-from PIL import Image
+from PIL import Image, ImageDraw
 import os
 import pygame
 import tkinter as tk
@@ -9,18 +9,26 @@ import glob
 
 def sidebar_test_maker(template, thumbnail):
     white_bg = Image.new("RGBA",(5996, 3223), color = "white")
+    blender = Image.new("RGBA",(5996, 3223), color = (0,0,0,0))
+    timestamp = ImageDraw.Draw(blender)
     out_thumbnail2 = thumbnail.resize((1014,570))
     white_bg.paste(out_thumbnail2, (4266, 631))
     white_bg.paste(template, (0,0), mask = template)
-    return white_bg
+    timestamp.rounded_rectangle([(5144, 1105), (5252, 1171)], 15, (0,0,0, 155))
+    output = Image.alpha_composite(white_bg, blender)
+    return output
 
 
 def front_page_test_maker(template, thumbnail):
     white_bg = Image.new("RGBA",(5996, 3223), color = "white")
+    blender = Image.new("RGBA",(5996, 3223), color = (0,0,0,0))
+    timestamp = ImageDraw.Draw(blender)
     out_thumbnail2 = thumbnail.resize((1626,914))
     white_bg.paste(out_thumbnail2, (910, 712))
     white_bg.paste(template, (0,0), mask = template)
-    return white_bg
+    timestamp.rounded_rectangle([(2394,1525), (2502,1593)], 15, (0,0,0, 155))
+    output = Image.alpha_composite(white_bg, blender)
+    return output
 
 def main():
     templ_img_path = ["C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemplateFiles\\YTVTemplate-1.png", 
@@ -28,18 +36,16 @@ def main():
                      "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemplateFiles\\YTVTemplate-3.png",
                      "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemplateFiles\\YTVTemplate-4.png"
                      ]
-    
-    central_img_path = "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\PDFAThumbnailTestSubject2.png"
-    
+    central_img_path = "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\ClouddropUpdateVideo_1Thumbnail.png"
 
     number = 0
     for file in templ_img_path:
         number +=1
-        name1, ext = os.path.splitext(file)
-        name2, ext = os.path.splitext(central_img_path)
-        newname = name1.replace("\\TemplateFiles", "\\TemporaryImageStorage")
-        newname2 = name2.split("\\")
-        newername = newname.replace(f"YTVTemplate-{number}", newname2[-1])
+        templname, ext = os.path.splitext(file)
+        draftname, ext = os.path.splitext(central_img_path)
+        newpathname = templname.replace("\\TemplateFiles", "\\TemporaryImageStorage")
+        filename = draftname.split("\\")
+        newername = newpathname.replace(f"YTVTemplate-{number}", filename[-1])
         with (Image.open(file)) as template, (Image.open(central_img_path)) as thumbnail:
             if number <= 2:
                 output = sidebar_test_maker(template, thumbnail)
@@ -48,15 +54,6 @@ def main():
                 output = front_page_test_maker(template, thumbnail)
                 output.save(f"{newername}testV{number}{ext}")
     
-
-    # white_bg = Image.new("RGBA",(5996, 3223), color = "white")
-    # name, ext = os.path.splitext(central_img_path)
-    # with (Image.open(central_img_path)) as thumbnail, Image.open(templ_img_path[2]) as template:
-    #     out_thumbnail = thumbnail.copy()
-    #     out_thumbnail2 = out_thumbnail.resize((1626, 914))
-    #     white_bg.paste(out_thumbnail2, (910, 712))
-    #     white_bg.paste(template, (0,0), mask = template)
-    #     white_bg.save(f"{name}placetest{ext}")
 
 
 
