@@ -9,16 +9,18 @@ import glob
 
 def sidebar_test_maker(template, thumbnail):
     white_bg = Image.new("RGBA",(5996, 3223), color = "white")
-    copythumbnail = thumbnail.copy()
-    out_thumbnail2 = copythumbnail.resize((1014,570))
-    copytemplate = template.copy()
+    out_thumbnail2 = thumbnail.resize((1014,570))
     white_bg.paste(out_thumbnail2, (4266, 631))
-    white_bg.paste(copytemplate, (0,0), mask = copytemplate)
+    white_bg.paste(template, (0,0), mask = template)
     return white_bg
 
 
 def front_page_test_maker(template, thumbnail):
-    blah = blah
+    white_bg = Image.new("RGBA",(5996, 3223), color = "white")
+    out_thumbnail2 = thumbnail.resize((1626,914))
+    white_bg.paste(out_thumbnail2, (910, 712))
+    white_bg.paste(template, (0,0), mask = template)
+    return white_bg
 
 def main():
     templ_img_path = ["C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemplateFiles\\YTVTemplate-1.png", 
@@ -27,7 +29,7 @@ def main():
                      "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemplateFiles\\YTVTemplate-4.png"
                      ]
     
-    central_img_path = "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\PDFA ThumbnailTestSubject.png"
+    central_img_path = "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\PDFAThumbnailTestSubject2.png"
     
 
     number = 0
@@ -42,17 +44,17 @@ def main():
             if number <= 2:
                 output = sidebar_test_maker(template, thumbnail)
                 output.save(f"{newername}testV{number}{ext}")
-            #if number > 2:
-                #output = front_page_test_maker(template, thumbnail)
-                #output.save(f"{newername}testV{number}{ext}")
+            if number > 2:
+                output = front_page_test_maker(template, thumbnail)
+                output.save(f"{newername}testV{number}{ext}")
     
 
     # white_bg = Image.new("RGBA",(5996, 3223), color = "white")
     # name, ext = os.path.splitext(central_img_path)
-    # with (Image.open(central_img_path)) as thumbnail, Image.open(templ_img_path[0]) as template:
+    # with (Image.open(central_img_path)) as thumbnail, Image.open(templ_img_path[2]) as template:
     #     out_thumbnail = thumbnail.copy()
-    #     out_thumbnail2 = out_thumbnail.resize((1014,570))
-    #     white_bg.paste(out_thumbnail2, (4266, 631))
+    #     out_thumbnail2 = out_thumbnail.resize((1626, 914))
+    #     white_bg.paste(out_thumbnail2, (910, 712))
     #     white_bg.paste(template, (0,0), mask = template)
     #     white_bg.save(f"{name}placetest{ext}")
 
