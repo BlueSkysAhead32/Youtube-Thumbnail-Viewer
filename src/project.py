@@ -67,7 +67,23 @@ def main():
     clock = pygame.time.Clock()
     running = True
     while running:
+        mouselocation = pygame.mouse.get_pos()
         for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                click = pygame.Rect((mouselocation[0], mouselocation[1]), (1,1))
+                pygame.draw.rect(screen, "blue", click)
+                if click.colliderect(button[3]):
+                    print("file select")
+                if click.colliderect(button[4]):
+                    print("convert files")
+                if click.colliderect(button[5]):
+                    print("show image 1")
+                if click.colliderect(button[6]):
+                    print("show image 2")
+                if click.colliderect(button[7]):
+                    print("show image 3")
+                if click.colliderect(button[8]):
+                    print("show image 4")
             if event.type == pygame.QUIT:
                 running = False
 
@@ -79,9 +95,6 @@ def main():
         color = [(80, 80, 80, 255), (40, 40, 40, 255), (125, 125, 125, 255), (40, 40, 40), (175, 175, 175), (200, 200, 200), (200, 200, 200), (200, 200, 200), 
                  (200, 200, 200)]
         borderR = [0, 0, 0, 15, 10, 10, 10, 10, 10]
-        selectfilebutton = pygame.Rect((40, 165), (295, 370))
-        convertfilebutton = pygame.Rect((362, 312), (75, 75))
-        showimg1button = pygame.Rect((0,0), (50, 50))
         
         for number in range(len(button)):
             pygame.draw.rect(screen, color[number], button[number], border_radius= borderR[number])
@@ -90,6 +103,9 @@ def main():
         canvas = pygame.Rect(( 25, 150), (750, 400))
         options = pygame.Rect((25, 20), (750, 100))
         divider = pygame.Rect((350, 150), (100, 400))
+        selectfilebutton = pygame.Rect((40, 165), (295, 370))
+        convertfilebutton = pygame.Rect((362, 312), (75, 75))
+        showimg1button = pygame.Rect((0,0), (50, 50))
         # pygame.draw.rect(screen, (80, 80, 80, 255), canvas)
         # pygame.draw.rect(screen, (40, 40, 40, 255), options)
         # pygame.draw.rect(screen, (125, 125, 125, 255), divider)
