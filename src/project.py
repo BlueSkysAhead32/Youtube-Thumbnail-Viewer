@@ -19,7 +19,6 @@ def sidebar_test_maker(template, thumbnail):
     output = Image.alpha_composite(white_bg, blender)
     draw = ImageDraw.Draw(output)
     draw.text((5161, 1118), "5:45", font= timestampfont)
-    
     return output
 
 
@@ -61,9 +60,6 @@ def main():
                 output = front_page_test_maker(template, thumbnail)
                 output.save(f"{newername}testV{number}{ext}")
     
-
-
-
 
 
 if __name__ == "__main__":
