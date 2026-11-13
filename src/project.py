@@ -70,7 +70,32 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-        screen.fill("black")
+
+        
+        screen.fill((55, 55, 55, 255))
+        button = [pygame.Rect(( 25, 150), (750, 400)), pygame.Rect((25, 20), (750, 100)), pygame.Rect((350, 150), (100, 400)), pygame.Rect((40, 165), (295, 370)), 
+                  pygame.Rect((362, 312), (75, 75)), pygame.Rect((700, 175), (50, 50)), pygame.Rect((700, 275), (50, 50)), pygame.Rect((700 , 375), (50, 50)), 
+                  pygame.Rect((700, 475), (50, 50))]
+        color = [(80, 80, 80, 255), (40, 40, 40, 255), (125, 125, 125, 255), (40, 40, 40), (175, 175, 175), (200, 200, 200), (200, 200, 200), (200, 200, 200), 
+                 (200, 200, 200)]
+        borderR = [0, 0, 0, 15, 10, 10, 10, 10, 10]
+        selectfilebutton = pygame.Rect((40, 165), (295, 370))
+        convertfilebutton = pygame.Rect((362, 312), (75, 75))
+        showimg1button = pygame.Rect((0,0), (50, 50))
+        
+        for number in range(len(button)):
+            pygame.draw.rect(screen, color[number], button[number], border_radius= borderR[number])
+            
+            
+        canvas = pygame.Rect(( 25, 150), (750, 400))
+        options = pygame.Rect((25, 20), (750, 100))
+        divider = pygame.Rect((350, 150), (100, 400))
+        # pygame.draw.rect(screen, (80, 80, 80, 255), canvas)
+        # pygame.draw.rect(screen, (40, 40, 40, 255), options)
+        # pygame.draw.rect(screen, (125, 125, 125, 255), divider)
+        # pygame.draw.rect(screen, (40, 40, 40), selectfilebutton, border_radius= 15)
+        # pygame.draw.rect(screen, (175, 175, 175), convertfilebutton, border_radius= 10)
+        # pygame.draw.rect(screen, (200, 200, 200), showimg1button, border_radius= 10)
         pygame.display.flip()
         dt = clock.tick(12)
 
