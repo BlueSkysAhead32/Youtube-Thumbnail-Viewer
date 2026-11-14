@@ -123,28 +123,27 @@ def main():
         
         for number in range(3, 13):
             pygame.draw.rect(screen, color[number], button[number], border_radius= borderR[number])
-
-    
             
+        # Keeping these for the sake of remembering which value goes where, if I want to change them later.
         
-        canvas = pygame.Rect(( 25, 150), (750, 400))
-        options = pygame.Rect((25, 20), (750, 100))
-        divider = pygame.Rect((350, 150), (100, 400))
-        selectfilebutton = pygame.Rect((40, 165), (295, 370))
-        convertfilebutton = pygame.Rect((362, 312), (75, 75))
-        showimg1button = pygame.Rect((0,0), (50, 50))
-        savebutton = pygame.Rect((450, 560), (150, 30))
-        clearbutton = pygame.Rect((625, 560), (150, 30))
-        comparebutton = pygame.Rect((400, 70), (170, 40))
-        timebutton = pygame.Rect((590, 70), (170, 40))
-        #pygame.draw.rect(screen, (235, 235, 235), savebutton, border_radius= 7)
-        #pygame.draw.rect(screen, (235, 235, 235), clearbutton, border_radius= 7)
+        # canvas = pygame.Rect(( 25, 150), (750, 400))
+        # options = pygame.Rect((25, 20), (750, 100))
+        # divider = pygame.Rect((350, 150), (100, 400))
+        # selectfilebutton = pygame.Rect((40, 165), (295, 370))
+        # convertfilebutton = pygame.Rect((362, 312), (75, 75))
+        # showimg1button = pygame.Rect((0,0), (50, 50))
+        # savebutton = pygame.Rect((450, 560), (150, 30))
+        # clearbutton = pygame.Rect((625, 560), (150, 30))
+        # comparebutton = pygame.Rect((400, 70), (170, 40))
+        # timebutton = pygame.Rect((590, 70), (170, 40))
         # pygame.draw.rect(screen, (80, 80, 80, 255), canvas)
         # pygame.draw.rect(screen, (40, 40, 40, 255), options)
         # pygame.draw.rect(screen, (125, 125, 125, 255), divider)
         # pygame.draw.rect(screen, (40, 40, 40), selectfilebutton, border_radius= 15)
         # pygame.draw.rect(screen, (175, 175, 175), convertfilebutton, border_radius= 10)
         # pygame.draw.rect(screen, (200, 200, 200), showimg1button, border_radius= 10)
+        #pygame.draw.rect(screen, (235, 235, 235), savebutton, border_radius= 7)
+        #pygame.draw.rect(screen, (235, 235, 235), clearbutton, border_radius= 7)
         #pygame.draw.rect(screen, (20, 20, 20), comparebutton, border_radius= 7)
         #pygame.draw.rect(screen, (20, 20, 20), timebutton, border_radius= 7)
         pygame.display.flip()
