@@ -67,6 +67,8 @@ def main():
     clock = pygame.time.Clock()
     running = True
     while running:
+        buttonclicked= False
+        thing = None
         mouselocation = pygame.mouse.get_pos()
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -74,24 +76,44 @@ def main():
                 pygame.draw.rect(screen, "blue", click)
                 if click.colliderect(button[3]):
                     print("file select")
+                    buttonclicked= True
+                    thing = 3
                 if click.colliderect(button[4]):
                     print("convert files")
+                    buttonclicked= True
+                    thing = 4
                 if click.colliderect(button[5]):
                     print("show image 1")
+                    buttonclicked= True
+                    thing = 5
                 if click.colliderect(button[6]):
                     print("show image 2")
+                    buttonclicked= True
+                    thing = 6
                 if click.colliderect(button[7]):
                     print("show image 3")
+                    buttonclicked= True
+                    thing = 7
                 if click.colliderect(button[8]):
                     print("show image 4")
+                    buttonclicked= True
+                    thing = 8
                 if click.colliderect(button[9]):
                     print("save files")
+                    buttonclicked= True
+                    thing = 9
                 if click.colliderect(button[10]):
                     print("clear all files")
+                    buttonclicked= True
+                    thing = 10
                 if click.colliderect(button[11]):
                     print("Switch to compare mode")
+                    buttonclicked= True
+                    thing = 11
                 if click.colliderect(button[12]):
                     print("Insert Timestamp")
+                    buttonclicked= True
+                    thing = 12
             if event.type == pygame.QUIT:
                 running = False
 
@@ -107,25 +129,33 @@ def main():
                          (170, 170, 170), (175, 175, 175), (175, 175, 175), (10, 10, 10), (10, 10, 10)]
         borderR = [7, 0, 0, 15, 10, 10, 10, 10, 10, 7, 7, 7, 7]
 
-        for number in range(0, 3):
-                    pygame.draw.rect(screen, color[number], button[number], border_radius= borderR[number])
+        for number in range(0, 3):  
+            pygame.draw.rect(screen, color[number], button[number], border_radius= borderR[number])
 
         for object in button:
-                    if place >= 3:
-                        
-                        shadow = object.copy()
-                        if place < 9:
-                            newshadow = shadow.move(-5, 5)
-                        if place >= 9:
-                            newshadow = shadow.move(-3, 3)
-                        pygame.draw.rect(screen, color2[place], newshadow, border_radius= borderR[place])
-                    place += 1
+            if place >= 3:
+                
+                shadow = object.copy()
+                if place < 9:
+                    newshadow = shadow.move(-5, 5)
+                if place >= 9:
+                    newshadow = shadow.move(-3, 3)
+                pygame.draw.rect(screen, color2[place], newshadow, border_radius= borderR[place])
+            place += 1
         
         for number in range(3, 13):
-            pygame.draw.rect(screen, color[number], button[number], border_radius= borderR[number])
+            if buttonclicked == True and number == thing:
+                tempbutton = button[thing].copy()
+                if place < 9:
+                    newpos = tempbutton.move(-5, 5)
+                if place >= 9:
+                    newpos = tempbutton.move(-3, 3)
+                pygame.draw.rect(screen, color[number], newpos, border_radius= borderR[number])
+            else:
+                pygame.draw.rect(screen, color[number], button[number], border_radius= borderR[number])
             
         # Keeping these for the sake of remembering which value goes where, if I want to change them later.
-        
+
         # canvas = pygame.Rect(( 25, 150), (750, 400))
         # options = pygame.Rect((25, 20), (750, 100))
         # divider = pygame.Rect((350, 150), (100, 400))
