@@ -66,6 +66,8 @@ def main():
     screen = pygame.display.set_mode(resolution)
     clock = pygame.time.Clock()
     running = True
+    testbuttonacess1 = False
+    testbuttonaccess2 = False
     while running:
         buttonclicked= False
         thing = None
@@ -74,43 +76,53 @@ def main():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 click = pygame.Rect((mouselocation[0], mouselocation[1]), (1,1))
                 pygame.draw.rect(screen, "blue", click)
-                if click.colliderect(button[3]):
+                if click.colliderect(button[13]) and testbuttonaccess2 == False:
+                    print("blocked")
+                    pass
+                elif click.colliderect(button[3]):
                     print("file select")
                     buttonclicked= True
                     thing = 3
-                if click.colliderect(button[4]):
+                    testbuttonacess1 = True
+                elif click.colliderect(button[4]):
                     print("convert files")
                     buttonclicked= True
                     thing = 4
-                if click.colliderect(button[5]):
+                    if testbuttonacess1 == True:
+                        testbuttonaccess2 = True
+                elif click.colliderect(button[5]):
                     print("show image 1")
                     buttonclicked= True
                     thing = 5
-                if click.colliderect(button[6]):
+                elif click.colliderect(button[6]):
                     print("show image 2")
                     buttonclicked= True
                     thing = 6
-                if click.colliderect(button[7]):
+                elif click.colliderect(button[7]):
                     print("show image 3")
                     buttonclicked= True
                     thing = 7
-                if click.colliderect(button[8]):
+                elif click.colliderect(button[8]):
                     print("show image 4")
                     buttonclicked= True
                     thing = 8
-                if click.colliderect(button[9]):
+                elif click.colliderect(button[9]):
                     print("save files")
                     buttonclicked= True
                     thing = 9
-                if click.colliderect(button[10]):
+                    testbuttonacess1 = False
+                    testbuttonaccess2 = False
+                elif click.colliderect(button[10]):
                     print("clear all files")
                     buttonclicked= True
                     thing = 10
-                if click.colliderect(button[11]):
+                    testbuttonacess1 = False
+                    testbuttonaccess2 = False
+                elif click.colliderect(button[11]):
                     print("Switch to compare mode")
                     buttonclicked= True
                     thing = 11
-                if click.colliderect(button[12]):
+                elif click.colliderect(button[12]):
                     print("Insert Timestamp")
                     buttonclicked= True
                     thing = 12
@@ -118,41 +130,56 @@ def main():
                 running = False
 
         place = 0
+        section = 3
         screen.fill((55, 55, 55, 255))
         button = [pygame.Rect(( 25, 150), (750, 400)), pygame.Rect((25, 20), (750, 100)), pygame.Rect((350, 150), (100, 400)), pygame.Rect((40, 165), (295, 370)), 
                   pygame.Rect((362, 312), (75, 75)), pygame.Rect((700, 175), (50, 50)), pygame.Rect((700, 275), (50, 50)), pygame.Rect((700 , 375), (50, 50)), 
                   pygame.Rect((700, 475), (50, 50)), pygame.Rect((450, 560), (150, 30)), pygame.Rect((625, 560), (150, 30)), pygame.Rect((400, 70), (170, 40)), 
-                  pygame.Rect((590, 70), (170, 40))]
+                  pygame.Rect((590, 70), (170, 40)), pygame.Rect((570,150), (200, 395))]
         color = [(80, 80, 80, 255), (25, 25, 25, 255), (125, 125, 125, 255), (40, 40, 40), (175, 175, 175), (200, 200, 200), (200, 200, 200), (200, 200, 200), 
-                 (200, 200, 200), (235, 235, 235), (235, 235, 235), (20, 20, 20), (20, 20, 20)]
+                 (200, 200, 200), (235, 235, 235), (235, 235, 235), (20, 20, 20), (20, 20, 20), (80, 80, 80, 255)]
         color2 = [(70, 70, 70), (15, 15, 15), (115, 115, 115), (30, 30, 30), (155, 155, 155), (170, 170, 170), (170, 170, 170), (170, 170, 170), 
-                         (170, 170, 170), (175, 175, 175), (175, 175, 175), (10, 10, 10), (10, 10, 10)]
-        borderR = [7, 0, 0, 15, 10, 10, 10, 10, 10, 7, 7, 7, 7]
+                         (170, 170, 170), (175, 175, 175), (175, 175, 175), (10, 10, 10), (10, 10, 10), (80, 80, 80, 255)]
+        borderR = [7, 0, 0, 15, 10, 10, 10, 10, 10, 7, 7, 7, 7, 0]
 
         for number in range(0, 3):  
             pygame.draw.rect(screen, color[number], button[number], border_radius= borderR[number])
 
         for object in button:
             if place >= 3:
-                
-                shadow = object.copy()
-                if place < 9:
-                    newshadow = shadow.move(-5, 5)
-                if place >= 9:
-                    newshadow = shadow.move(-3, 3)
-                pygame.draw.rect(screen, color2[place], newshadow, border_radius= borderR[place])
+                if testbuttonacess1 == False and testbuttonaccess2 == False and place >= 5 and place < 9:
+                    pass
+                    pygame.draw.rect(screen, color[13], button[13])
+                elif testbuttonacess1 == True and testbuttonaccess2 == False and place >= 5 and place < 9:
+                    pass
+                    pygame.draw.rect(screen, color[13], button[13])
+                else:
+                    shadow = object.copy()
+                    if place < 9:
+                        newshadow = shadow.move(-5, 5)
+                    if place >= 9:
+                        newshadow = shadow.move(-3, 3)
+                    if place < 13:
+                        pygame.draw.rect(screen, color2[place], newshadow, border_radius= borderR[place])
             place += 1
         
         for number in range(3, 13):
-            if buttonclicked == True and number == thing:
-                tempbutton = button[thing].copy()
-                if place < 9:
-                    newpos = tempbutton.move(-5, 5)
-                if place >= 9:
-                    newpos = tempbutton.move(-3, 3)
-                pygame.draw.rect(screen, color[number], newpos, border_radius= borderR[number])
+            if testbuttonacess1 == False and testbuttonaccess2 == False and section >= 5 and section < 9:
+                pass
+            elif testbuttonacess1 == True and testbuttonaccess2 == False and section >= 5 and section < 9:
+                pass
             else:
-                pygame.draw.rect(screen, color[number], button[number], border_radius= borderR[number])
+                if buttonclicked == True and number == thing:
+                    tempbutton = button[thing].copy()
+                    if place < 9:
+                        newpos = tempbutton.move(-5, 5)
+                    if place >= 9:
+                        newpos = tempbutton.move(-3, 3)
+                    pygame.draw.rect(screen, color[number], newpos, border_radius= borderR[number])
+                else:
+                    if section < 13:
+                        pygame.draw.rect(screen, color[number], button[number], border_radius= borderR[number])
+            section += 1
             
         # Keeping these for the sake of remembering which value goes where, if I want to change them later.
 
