@@ -66,7 +66,7 @@ def main():
     screen = pygame.display.set_mode(resolution)
     clock = pygame.time.Clock()
     running = True
-    testbuttonacess1 = False
+    testbuttonaccess1 = False
     testbuttonaccess2 = False
     central_img_path= ""
     templ_img_path = ["C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemplateFiles\\YTVTemplate-1.png", 
@@ -86,6 +86,7 @@ def main():
                     print("blocked")
                     pass
                 elif click.colliderect(button[3]):
+                    testbuttonaccess2 = False
                     print("file select")
                     fileinput= tk.Tk()
                     fileinput.withdraw()
@@ -94,14 +95,14 @@ def main():
                     print(central_img_path)
                     buttonclicked= True
                     thing = 3
-                    testbuttonacess1 = True
+                    testbuttonaccess1 = True
                 elif click.colliderect(button[4]):
                     print("convert files")
                     print(central_img_path)
                     ref = 0
                     buttonclicked= True
                     thing = 4
-                    if testbuttonacess1 == True:
+                    if testbuttonaccess1 == True:
                         for file in templ_img_path:
                             ref +=1
                             templname, ext = os.path.splitext(file)
@@ -137,19 +138,19 @@ def main():
                     print("save files")
                     buttonclicked= True
                     thing = 9
-                    testbuttonacess1 = False
+                    testbuttonaccess1 = False
                     testbuttonaccess2 = False
                 elif click.colliderect(button[10]):
                     print("clear all files")
                     buttonclicked= True
                     thing = 10
-                    testbuttonacess1 = False
+                    testbuttonaccess1 = False
                     testbuttonaccess2 = False
                 elif click.colliderect(button[11]):
                     print("Switch to compare mode")
                     buttonclicked= True
                     thing = 11
-                    testbuttonacess1 = False
+                    testbuttonaccess1 = False
                     testbuttonaccess2 = False
                 elif click.colliderect(button[12]):
                     print("Insert Timestamp")
@@ -176,10 +177,10 @@ def main():
 
         for object in button:
             if place >= 3:
-                if testbuttonacess1 == False and testbuttonaccess2 == False and place >= 5 and place < 9:
+                if testbuttonaccess1 == False and testbuttonaccess2 == False and place >= 5 and place < 9:
                     pass
                     pygame.draw.rect(screen, color[13], button[13])
-                elif testbuttonacess1 == True and testbuttonaccess2 == False and place >= 5 and place < 9:
+                elif testbuttonaccess1 == True and testbuttonaccess2 == False and place >= 5 and place < 9:
                     pass
                     pygame.draw.rect(screen, color[13], button[13])
                 else:
@@ -193,9 +194,9 @@ def main():
             place += 1
         
         for number in range(3, 13):
-            if testbuttonacess1 == False and testbuttonaccess2 == False and section >= 5 and section < 9:
+            if testbuttonaccess1 == False and testbuttonaccess2 == False and section >= 5 and section < 9:
                 pass
-            elif testbuttonacess1 == True and testbuttonaccess2 == False and section >= 5 and section < 9:
+            elif testbuttonaccess1 == True and testbuttonaccess2 == False and section >= 5 and section < 9:
                 pass
             else:
                 if buttonclicked == True and number == thing:
