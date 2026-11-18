@@ -122,6 +122,8 @@ def main():
                     print("Switch to compare mode")
                     buttonclicked= True
                     thing = 11
+                    testbuttonacess1 = False
+                    testbuttonaccess2 = False
                 elif click.colliderect(button[12]):
                     print("Insert Timestamp")
                     buttonclicked= True
