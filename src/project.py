@@ -44,21 +44,21 @@ def main():
     #                  ]
     # central_img_path = "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\ClouddropUpdateVideo_1Thumbnail.png"
 
-    # number = 0
+    # ref = 0
     # for file in templ_img_path:
-    #     number +=1
+    #     ref +=1
     #     templname, ext = os.path.splitext(file)
     #     draftname, ext = os.path.splitext(central_img_path)
     #     newpathname = templname.replace("\\TemplateFiles", "\\TemporaryImageStorage")
     #     filename = draftname.split("\\")
-    #     newername = newpathname.replace(f"YTVTemplate-{number}", filename[-1])
+    #     newername = newpathname.replace(f"YTVTemplate-{ref}", filename[-1])
     #     with (Image.open(file)) as template, (Image.open(central_img_path)) as thumbnail:
-    #         if number <= 2:
+    #         if ref <= 2:
     #             output = sidebar_test_maker(template, thumbnail)
-    #             output.save(f"{newername}testV{number}{ext}")
-    #         if number > 2:
+    #             output.save(f"{newername}testV{ref}{ext}")
+    #         if ref > 2:
     #             output = front_page_test_maker(template, thumbnail)
-    #             output.save(f"{newername}testV{number}{ext}")
+    #             output.save(f"{newername}testV{ref}{ext}")
     
     pygame.init()
     pygame.display.set_caption("Youtube Thumbnail Viewer")
@@ -68,6 +68,12 @@ def main():
     running = True
     testbuttonacess1 = False
     testbuttonaccess2 = False
+    central_img_path= ""
+    templ_img_path = ["C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemplateFiles\\YTVTemplate-1.png", 
+                      "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemplateFiles\\YTVTemplate-2.png",
+                      "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemplateFiles\\YTVTemplate-3.png",
+                      "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemplateFiles\\YTVTemplate-4.png"
+                      ]
     while running:
         buttonclicked= False
         thing = None
@@ -81,14 +87,35 @@ def main():
                     pass
                 elif click.colliderect(button[3]):
                     print("file select")
+                    fileinput= tk.Tk()
+                    fileinput.withdraw()
+                    filepath = filedialog.askopenfilename(filetypes= [("PNG files", "*.png")])
+                    central_img_path = filepath
+                    print(central_img_path)
                     buttonclicked= True
                     thing = 3
                     testbuttonacess1 = True
                 elif click.colliderect(button[4]):
                     print("convert files")
+                    print(central_img_path)
+                    ref = 0
                     buttonclicked= True
                     thing = 4
                     if testbuttonacess1 == True:
+                        for file in templ_img_path:
+                            ref +=1
+                            templname, ext = os.path.splitext(file)
+                            draftname, ext = os.path.splitext(central_img_path)
+                            newpathname = templname.replace("\\TemplateFiles", "\\TemporaryImageStorage")
+                            filename = draftname.split("/")
+                            newername = newpathname.replace(f"YTVTemplate-{ref}", filename[-1])
+                            with (Image.open(file)) as template, (Image.open(central_img_path)) as thumbnail:
+                                if ref <= 2:
+                                    output = sidebar_test_maker(template, thumbnail)
+                                    output.save(f"{newername}testV{ref}{ext}")
+                                if ref > 2:
+                                    output = front_page_test_maker(template, thumbnail)
+                                    output.save(f"{newername}testV{ref}{ext}")
                         testbuttonaccess2 = True
                 elif click.colliderect(button[5]):
                     print("show image 1")
