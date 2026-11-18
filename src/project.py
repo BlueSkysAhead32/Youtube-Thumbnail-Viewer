@@ -36,29 +36,11 @@ def front_page_test_maker(template, thumbnail):
     draw.text((2409, 1535), "5:45", font= timestampfont)
     return output
 
-def main():
-    # templ_img_path = ["C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemplateFiles\\YTVTemplate-1.png", 
-    #                  "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemplateFiles\\YTVTemplate-2.png",
-    #                  "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemplateFiles\\YTVTemplate-3.png",
-    #                  "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemplateFiles\\YTVTemplate-4.png"
-    #                  ]
-    # central_img_path = "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\ClouddropUpdateVideo_1Thumbnail.png"
+def image_shower(name, select, filetype):
+    with (Image.open(f"{name}testVV{select}{filetype}")) as img:
+        img.show()
 
-    # ref = 0
-    # for file in templ_img_path:
-    #     ref +=1
-    #     templname, ext = os.path.splitext(file)
-    #     draftname, ext = os.path.splitext(central_img_path)
-    #     newpathname = templname.replace("\\TemplateFiles", "\\TemporaryImageStorage")
-    #     filename = draftname.split("\\")
-    #     newername = newpathname.replace(f"YTVTemplate-{ref}", filename[-1])
-    #     with (Image.open(file)) as template, (Image.open(central_img_path)) as thumbnail:
-    #         if ref <= 2:
-    #             output = sidebar_test_maker(template, thumbnail)
-    #             output.save(f"{newername}testV{ref}{ext}")
-    #         if ref > 2:
-    #             output = front_page_test_maker(template, thumbnail)
-    #             output.save(f"{newername}testV{ref}{ext}")
+def main():
     
     pygame.init()
     pygame.display.set_caption("Youtube Thumbnail Viewer")
@@ -113,25 +95,29 @@ def main():
                             with (Image.open(file)) as template, (Image.open(central_img_path)) as thumbnail:
                                 if ref <= 2:
                                     output = sidebar_test_maker(template, thumbnail)
-                                    output.save(f"{newername}testV{ref}{ext}")
+                                    output.save(f"{newername}testVV{ref}{ext}")
                                 if ref > 2:
                                     output = front_page_test_maker(template, thumbnail)
-                                    output.save(f"{newername}testV{ref}{ext}")
+                                    output.save(f"{newername}testVV{ref}{ext}")
                         testbuttonaccess2 = True
                 elif click.colliderect(button[5]):
                     print("show image 1")
+                    image_shower(newername, 1, ext)
                     buttonclicked= True
                     thing = 5
                 elif click.colliderect(button[6]):
                     print("show image 2")
+                    image_shower(newername, 2, ext)
                     buttonclicked= True
                     thing = 6
                 elif click.colliderect(button[7]):
                     print("show image 3")
+                    image_shower(newername, 3, ext)
                     buttonclicked= True
                     thing = 7
                 elif click.colliderect(button[8]):
                     print("show image 4")
+                    image_shower(newername, 4, ext)
                     buttonclicked= True
                     thing = 8
                 elif click.colliderect(button[9]):
