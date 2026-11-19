@@ -59,6 +59,7 @@ def main():
     testbuttonaccess2 = False
     showitnow1 = False
     showitnow2 = False
+    fadeaway = 0
     central_img_path= ""
     templ_img_path = ["C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemplateFiles\\YTVTemplate-1.png", 
                       "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemplateFiles\\YTVTemplate-2.png",
@@ -209,6 +210,12 @@ def main():
 
         if thing == 9 and central_img_path != "" and os.listdir(tempstorage) != []:
             commandbar_displayer(screen, textdisplay1, "Saving Images...")
+
+        if thing == 10 or fadeaway > 0:
+            if fadeaway == 0:
+                fadeaway += 15
+            commandbar_displayer(screen, textdisplay1, "Files Cleared!")
+            fadeaway -= 1
         
         pygame.display.flip()
 
