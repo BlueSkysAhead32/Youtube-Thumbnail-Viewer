@@ -43,13 +43,19 @@ def image_shower(name, select, filetype):
 def main():
     
     pygame.init()
+    pygame.font.init()
     pygame.display.set_caption("Youtube Thumbnail Viewer")
+    textdisplay1 = pygame.font.SysFont('arial', 20)
+    textdisplay2 = pygame.font.SysFont('arial', 45)
+    textdisplay3 = pygame.font.SysFont('arial', 17)
     resolution = (800, 600)
     screen = pygame.display.set_mode(resolution)
     clock = pygame.time.Clock()
     running = True
     testbuttonaccess1 = False
     testbuttonaccess2 = False
+    showitnow1 = False
+    showitnow2 = False
     central_img_path= ""
     templ_img_path = ["C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemplateFiles\\YTVTemplate-1.png", 
                       "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemplateFiles\\YTVTemplate-2.png",
@@ -117,6 +123,10 @@ def main():
                     buttonclicked= True
                     thing = 12
             if event.type == pygame.QUIT:
+                tempstorage = "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemporaryImageStorage"
+                for path in os.scandir(tempstorage):
+                    os.remove(path.path)
+                    showitnow1 = False
                 running = False
 
         place = 0
@@ -134,6 +144,7 @@ def main():
 
         for number in range(0, 3):  
             pygame.draw.rect(screen, color[number], button[number], border_radius= borderR[number])
+            pygame.font.Font()
 
         for object in button:
             if place >= 3:
@@ -171,6 +182,25 @@ def main():
                         pygame.draw.rect(screen, color[number], button[number], border_radius= borderR[number])
             section += 1
 
+        if showitnow1 == True:
+            display_central_filename = central_img_path.split("/")
+            selectedfilename = textdisplay1.render(f"File selected: {display_central_filename[-1]}", True, "white", wraplength= 250)
+            screen.blit(selectedfilename, (80, 450))
+
+        if showitnow1 == False:
+            selectfiletext = textdisplay2.render("Click Here to Insert a .png File!", True, "white", wraplength= 350)
+            screen.blit(selectfiletext, (60, 250))
+
+        if showitnow2 == True:
+            position = 0
+            for file in os.scandir("C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemporaryImageStorage"):
+                locations = [(450,175), (450, 275), (450, 375), (450, 475)]
+                testimagename = textdisplay3.render(f"{file.name}", True, "white", wraplength = 250)
+                screen.blit(testimagename, locations[position])
+                position += 1
+
+                
+
         
         pygame.display.flip()
 
@@ -180,6 +210,7 @@ def main():
             filepath = filedialog.askopenfilename(filetypes= [("PNG files", "*.png")])
             central_img_path = filepath
             print(central_img_path)
+            showitnow1 = True
 
         if thing == 4:
             ref = 0
@@ -199,6 +230,7 @@ def main():
                         output.save(f"{newername}testVV{ref}{ext}")
             if testbuttonaccess1 == True:
                 testbuttonaccess2 = True
+                showitnow2 = True
 
         if thing in range(5,9):
             part = thing - 4
@@ -215,6 +247,13 @@ def main():
                 with Image.open(path.path) as done:
                     done.save(finalplace)
                 os.remove(path.path)
+                showitnow1 = False
+
+        if thing == 10:
+            tempstorage = "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemporaryImageStorage"
+            for path in os.scandir(tempstorage):
+                os.remove(path.path)
+                showitnow1 = False
 
 
         # Keeping these for the sake of remembering which value goes where, if I want to change them later.
