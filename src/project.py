@@ -198,9 +198,6 @@ def main():
                 testimagename = textdisplay3.render(f"{file.name}", True, "white", wraplength = 250)
                 screen.blit(testimagename, locations[position])
                 position += 1
-
-                
-
         
         pygame.display.flip()
 
