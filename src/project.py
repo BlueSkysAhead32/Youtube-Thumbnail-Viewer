@@ -40,6 +40,9 @@ def image_shower(name, select, filetype):
     with (Image.open(f"{name}testVV{select}{filetype}")) as img:
         img.show()
 
+def commandbar_displayer(surface, textstyle, text):
+    what_happening = textstyle.render(f"{text}", True, "white", wraplength= 600)
+    surface.blit(what_happening, (10, 575))
 def main():
     
     pygame.init()
@@ -200,6 +203,12 @@ def main():
                 testimagename = textdisplay3.render(f"{file.name}", True, "white", wraplength = 250)
                 screen.blit(testimagename, locations[position])
                 position += 1
+
+        if thing == 4 and central_img_path != "" and testbuttonaccess1 == True:
+            commandbar_displayer(screen, textdisplay1, "Loading Images...")
+
+        if thing == 9 and central_img_path != "" and os.listdir(tempstorage) != []:
+            commandbar_displayer(screen, textdisplay1, "Saving Images...")
         
         pygame.display.flip()
 
@@ -249,8 +258,6 @@ def main():
             for path in os.scandir(tempstorage):
                 if exportpath == "":
                     os.remove(path.path)
-                    showitnow1 = False
-                    central_img_path = ""
                     pass
                 else:
                     image_path = path.name
@@ -258,7 +265,6 @@ def main():
                     with Image.open(path.path) as done:
                         done.save(finalplace)
                     os.remove(path.path)
-                    showitnow1 = False
             central_img_path = ""
             showitnow1 = False
 
