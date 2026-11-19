@@ -204,6 +204,14 @@ def main():
             part = thing - 4
             image_shower(newername, part, ext)
 
+        if thing == 9:
+            fileexport = tk.Tk()
+            fileexport.withdraw()
+            endpath = filedialog.askdirectory
+            tempstorage = "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemporaryImageStorage"
+            for final in os.scandir(tempstorage):
+                print(final)
+
 
         # Keeping these for the sake of remembering which value goes where, if I want to change them later.
 
