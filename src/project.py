@@ -68,56 +68,30 @@ def main():
                     print("blocked")
                     pass
                 elif click.colliderect(button[3]):
-                    testbuttonaccess2 = False
-                    print("file select")
-                    fileinput= tk.Tk()
-                    fileinput.withdraw()
-                    filepath = filedialog.askopenfilename(filetypes= [("PNG files", "*.png")])
-                    central_img_path = filepath
-                    print(central_img_path)
                     buttonclicked= True
                     thing = 3
+                    testbuttonaccess2 = False
+                    print("file select")
                     testbuttonaccess1 = True
                 elif click.colliderect(button[4]):
                     print("convert files")
                     print(central_img_path)
-                    ref = 0
                     buttonclicked= True
                     thing = 4
-                    if testbuttonaccess1 == True:
-                        for file in templ_img_path:
-                            ref +=1
-                            templname, ext = os.path.splitext(file)
-                            draftname, ext = os.path.splitext(central_img_path)
-                            newpathname = templname.replace("\\TemplateFiles", "\\TemporaryImageStorage")
-                            filename = draftname.split("/")
-                            newername = newpathname.replace(f"YTVTemplate-{ref}", filename[-1])
-                            with (Image.open(file)) as template, (Image.open(central_img_path)) as thumbnail:
-                                if ref <= 2:
-                                    output = sidebar_test_maker(template, thumbnail)
-                                    output.save(f"{newername}testVV{ref}{ext}")
-                                if ref > 2:
-                                    output = front_page_test_maker(template, thumbnail)
-                                    output.save(f"{newername}testVV{ref}{ext}")
-                        testbuttonaccess2 = True
                 elif click.colliderect(button[5]):
                     print("show image 1")
-                    image_shower(newername, 1, ext)
                     buttonclicked= True
                     thing = 5
                 elif click.colliderect(button[6]):
                     print("show image 2")
-                    image_shower(newername, 2, ext)
                     buttonclicked= True
                     thing = 6
                 elif click.colliderect(button[7]):
                     print("show image 3")
-                    image_shower(newername, 3, ext)
                     buttonclicked= True
                     thing = 7
                 elif click.colliderect(button[8]):
                     print("show image 4")
-                    image_shower(newername, 4, ext)
                     buttonclicked= True
                     thing = 8
                 elif click.colliderect(button[9]):
@@ -196,7 +170,41 @@ def main():
                     if section < 13:
                         pygame.draw.rect(screen, color[number], button[number], border_radius= borderR[number])
             section += 1
-            
+
+        
+        pygame.display.flip()
+
+        if thing == 3:
+            fileinput= tk.Tk()
+            fileinput.withdraw()
+            filepath = filedialog.askopenfilename(filetypes= [("PNG files", "*.png")])
+            central_img_path = filepath
+            print(central_img_path)
+
+        if thing == 4:
+            ref = 0
+            for file in templ_img_path:
+                ref +=1
+                templname, ext = os.path.splitext(file)
+                draftname, ext = os.path.splitext(central_img_path)
+                newpathname = templname.replace("\\TemplateFiles", "\\TemporaryImageStorage")
+                filename = draftname.split("/")
+                newername = newpathname.replace(f"YTVTemplate-{ref}", filename[-1])
+                with (Image.open(file)) as template, (Image.open(central_img_path)) as thumbnail:
+                    if ref <= 2:
+                        output = sidebar_test_maker(template, thumbnail)
+                        output.save(f"{newername}testVV{ref}{ext}")
+                    if ref > 2:
+                        output = front_page_test_maker(template, thumbnail)
+                        output.save(f"{newername}testVV{ref}{ext}")
+            if testbuttonaccess1 == True:
+                testbuttonaccess2 = True
+
+        if thing in range(5,9):
+            part = thing - 4
+            image_shower(newername, part, ext)
+
+
         # Keeping these for the sake of remembering which value goes where, if I want to change them later.
 
         # canvas = pygame.Rect(( 25, 150), (750, 400))
@@ -219,7 +227,6 @@ def main():
         #pygame.draw.rect(screen, (235, 235, 235), clearbutton, border_radius= 7)
         #pygame.draw.rect(screen, (20, 20, 20), comparebutton, border_radius= 7)
         #pygame.draw.rect(screen, (20, 20, 20), timebutton, border_radius= 7)
-        pygame.display.flip()
         dt = clock.tick(12)
 
 
