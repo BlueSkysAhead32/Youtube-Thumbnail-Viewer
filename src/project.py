@@ -213,24 +213,27 @@ def main():
             showitnow1 = True
 
         if thing == 4:
-            ref = 0
-            for file in templ_img_path:
-                ref +=1
-                templname, ext = os.path.splitext(file)
-                draftname, ext = os.path.splitext(central_img_path)
-                newpathname = templname.replace("\\TemplateFiles", "\\TemporaryImageStorage")
-                filename = draftname.split("/")
-                newername = newpathname.replace(f"YTVTemplate-{ref}", filename[-1])
-                with (Image.open(file)) as template, (Image.open(central_img_path)) as thumbnail:
-                    if ref <= 2:
-                        output = sidebar_test_maker(template, thumbnail)
-                        output.save(f"{newername}testVV{ref}{ext}")
-                    if ref > 2:
-                        output = front_page_test_maker(template, thumbnail)
-                        output.save(f"{newername}testVV{ref}{ext}")
-            if testbuttonaccess1 == True:
-                testbuttonaccess2 = True
-                showitnow2 = True
+            if central_img_path == "":
+                pass
+            else:
+                ref = 0
+                for file in templ_img_path:
+                    ref +=1
+                    templname, ext = os.path.splitext(file)
+                    draftname, ext = os.path.splitext(central_img_path)
+                    newpathname = templname.replace("\\TemplateFiles", "\\TemporaryImageStorage")
+                    filename = draftname.split("/")
+                    newername = newpathname.replace(f"YTVTemplate-{ref}", filename[-1])
+                    with (Image.open(file)) as template, (Image.open(central_img_path)) as thumbnail:
+                        if ref <= 2:
+                            output = sidebar_test_maker(template, thumbnail)
+                            output.save(f"{newername}testVV{ref}{ext}")
+                        if ref > 2:
+                            output = front_page_test_maker(template, thumbnail)
+                            output.save(f"{newername}testVV{ref}{ext}")
+                if testbuttonaccess1 == True:
+                    testbuttonaccess2 = True
+                    showitnow2 = True
 
         if thing in range(5,9):
             part = thing - 4
