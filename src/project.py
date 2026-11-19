@@ -144,7 +144,6 @@ def main():
 
         for number in range(0, 3):  
             pygame.draw.rect(screen, color[number], button[number], border_radius= borderR[number])
-            pygame.font.Font()
 
         for object in button:
             if place >= 3:
@@ -183,9 +182,12 @@ def main():
             section += 1
 
         if showitnow1 == True:
-            display_central_filename = central_img_path.split("/")
-            selectedfilename = textdisplay1.render(f"File selected: {display_central_filename[-1]}", True, "white", wraplength= 250)
-            screen.blit(selectedfilename, (80, 450))
+            if central_img_path == "":
+                pass
+            else:
+                display_central_filename = central_img_path.split("/")
+                selectedfilename = textdisplay1.render(f"File selected: {display_central_filename[-1]}", True, "white", wraplength= 250)
+                screen.blit(selectedfilename, (80, 450))
 
         if showitnow1 == False:
             selectfiletext = textdisplay2.render("Click Here to Insert a .png File!", True, "white", wraplength= 350)
@@ -207,7 +209,10 @@ def main():
             filepath = filedialog.askopenfilename(filetypes= [("PNG files", "*.png")])
             central_img_path = filepath
             print(central_img_path)
-            showitnow1 = True
+            if central_img_path is not "":
+                showitnow1 = True
+            else:
+                showitnow1 = False
 
         if thing == 4:
             if central_img_path == "":
@@ -242,12 +247,17 @@ def main():
             exportpath = filedialog.askdirectory(title= "wheres the file going")
             tempstorage = "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemporaryImageStorage"
             for path in os.scandir(tempstorage):
-                image_path = path.name
-                finalplace = os.path.join(exportpath, image_path)
-                with Image.open(path.path) as done:
-                    done.save(finalplace)
-                os.remove(path.path)
-                showitnow1 = False
+                if exportpath == "":
+                    os.remove(path.path)
+                    showitnow1 = False
+                    pass
+                else:
+                    image_path = path.name
+                    finalplace = os.path.join(exportpath, image_path)
+                    with Image.open(path.path) as done:
+                        done.save(finalplace)
+                    os.remove(path.path)
+                    showitnow1 = False
 
         if thing == 10:
             tempstorage = "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemporaryImageStorage"
