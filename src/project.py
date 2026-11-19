@@ -209,7 +209,7 @@ def main():
             filepath = filedialog.askopenfilename(filetypes= [("PNG files", "*.png")])
             central_img_path = filepath
             print(central_img_path)
-            if central_img_path is not "":
+            if central_img_path != "":
                 showitnow1 = True
             else:
                 showitnow1 = False
@@ -250,6 +250,7 @@ def main():
                 if exportpath == "":
                     os.remove(path.path)
                     showitnow1 = False
+                    central_img_path = ""
                     pass
                 else:
                     image_path = path.name
@@ -258,12 +259,14 @@ def main():
                         done.save(finalplace)
                     os.remove(path.path)
                     showitnow1 = False
+                    central_img_path = ""
 
         if thing == 10:
             tempstorage = "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemporaryImageStorage"
             for path in os.scandir(tempstorage):
                 os.remove(path.path)
                 showitnow1 = False
+                central_img_path = ""
 
 
         # Keeping these for the sake of remembering which value goes where, if I want to change them later.
