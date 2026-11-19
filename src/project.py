@@ -207,10 +207,14 @@ def main():
         if thing == 9:
             fileexport = tk.Tk()
             fileexport.withdraw()
-            endpath = filedialog.askdirectory
+            exportpath = filedialog.askdirectory(title= "wheres the file going")
             tempstorage = "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemporaryImageStorage"
-            for final in os.scandir(tempstorage):
-                print(final)
+            for path in os.scandir(tempstorage):
+                image_path = path.name
+                finalplace = os.path.join(exportpath, image_path)
+                with Image.open(path.path) as done:
+                    done.save(finalplace)
+                os.remove(path.path)
 
 
         # Keeping these for the sake of remembering which value goes where, if I want to change them later.
