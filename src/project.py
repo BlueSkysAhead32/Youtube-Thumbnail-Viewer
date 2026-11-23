@@ -15,11 +15,31 @@ def sidebar_test_maker(template, thumbnail, Videotimestamp):
     out_thumbnail2 = thumbnail.resize((1014,570))
     white_bg.paste(out_thumbnail2, (4266, 631))
     white_bg.paste(template, (0,0), mask = template)
-    timestamp.rounded_rectangle([(5144, 1105), (5252, 1171)], 15, (0,0,0, 155))
+    if Videotimestamp == None:
+        timestamp.rounded_rectangle([(5144, 1105), (5252, 1171)], 15, (0,0,0, 155))
+    elif len(Videotimestamp) == 4:
+        timestamp.rounded_rectangle([(5144, 1105), (5252, 1171)], 15, (0,0,0, 155))
+    elif len(Videotimestamp) == 5:
+        timestamp.rounded_rectangle([(5130, 1105), (5252, 1171)], 15, (0,0,0, 155))
+    elif len(Videotimestamp) == 7:
+        timestamp.rounded_rectangle([(5110, 1105), (5252, 1171)], 15, (0,0,0, 155))
+    elif len(Videotimestamp) == 8:
+        timestamp.rounded_rectangle([(5095, 1105), (5252, 1171)], 15, (0,0,0, 155))
+    else:
+        Videotimestamp = None
+        timestamp.rounded_rectangle([(5144, 1105), (5252, 1171)], 15, (0,0,0, 155))
+
     output = Image.alpha_composite(white_bg, blender)
     draw = ImageDraw.Draw(output)
     if Videotimestamp != None:
-        draw.text((5161, 1118), Videotimestamp, font= timestampfont)
+        if len(Videotimestamp) == 4:
+            draw.text((5161, 1118), Videotimestamp, font= timestampfont)
+        if len(Videotimestamp) == 5:
+            draw.text((5147, 1118), Videotimestamp, font= timestampfont)
+        if len(Videotimestamp) == 7:
+            draw.text((5117, 1118), Videotimestamp, font= timestampfont)
+        if len(Videotimestamp) == 8:
+            draw.text((5098, 1118), Videotimestamp, font= timestampfont)
     if Videotimestamp == None:
         draw.text((5161, 1118), "5:45", font= timestampfont)
     return output
@@ -33,11 +53,30 @@ def front_page_test_maker(template, thumbnail, Videotimestamp):
     out_thumbnail2 = thumbnail.resize((1626,914))
     white_bg.paste(out_thumbnail2, (910, 712))
     white_bg.paste(template, (0,0), mask = template)
-    timestamp.rounded_rectangle([(2394,1525), (2502,1593)], 15, (0,0,0, 155))
+    if Videotimestamp == None:
+        timestamp.rounded_rectangle([(2394,1525), (2502,1593)], 15, (0,0,0, 155))
+    elif len(Videotimestamp) == 4:
+        timestamp.rounded_rectangle([(2394,1525), (2502,1593)], 15, (0,0,0, 155))
+    elif len(Videotimestamp) == 5:
+        timestamp.rounded_rectangle([(2380,1525), (2502,1593)], 15, (0,0,0, 155))
+    elif len(Videotimestamp) == 7:
+        timestamp.rounded_rectangle([(2350,1525), (2502,1593)], 15, (0,0,0, 155))
+    elif len(Videotimestamp) == 8:
+        timestamp.rounded_rectangle([(2325,1525), (2502,1593)], 15, (0,0,0, 155))
+    else:
+        Videotimestamp = None
+        timestamp.rounded_rectangle([(2394,1525), (2502,1593)], 15, (0,0,0, 155))
     output = Image.alpha_composite(white_bg, blender)
     draw = ImageDraw.Draw(output)
     if Videotimestamp != None:
-        draw.text((2409, 1535), Videotimestamp, font= timestampfont)
+        if len(Videotimestamp) == 4:
+            draw.text((2409, 1535), Videotimestamp, font= timestampfont)
+        if len(Videotimestamp) == 5:
+            draw.text((2390, 1535), Videotimestamp, font= timestampfont)
+        if len(Videotimestamp) == 7:
+            draw.text((2360, 1535), Videotimestamp, font= timestampfont)
+        if len(Videotimestamp) == 8:
+            draw.text((2335, 1535), Videotimestamp, font= timestampfont)
     if Videotimestamp == None:
         draw.text((2409, 1535), "5:45", font= timestampfont)
     return output
