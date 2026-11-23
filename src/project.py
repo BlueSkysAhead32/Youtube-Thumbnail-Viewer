@@ -323,7 +323,6 @@ def main():
                     os.remove(path.path)
             central_img_path = ""
             showitnow1 = False
-            VideoTimeammount = None
 
         if thing == 10:
             tempstorage = "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemporaryImageStorage"
