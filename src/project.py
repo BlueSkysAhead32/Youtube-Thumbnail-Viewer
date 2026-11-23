@@ -2,12 +2,12 @@ from PIL import Image, ImageDraw, ImageFont
 import os
 import pygame
 import tkinter as tk
-from tkinter import filedialog
+from tkinter import filedialog, simpledialog
 #One's below will most likely be temporary, TO BE REMOVED BY END.
 import sys
 import glob
 
-def sidebar_test_maker(template, thumbnail):
+def sidebar_test_maker(template, thumbnail, Videotimestamp):
     white_bg = Image.new("RGBA",(5996, 3223), color = "white")
     blender = Image.new("RGBA",(5996, 3223), color = (0,0,0,0))
     timestampfont = ImageFont.truetype('Pillow/Tests/fonts/arialbd.ttf', size= 37)
@@ -18,11 +18,14 @@ def sidebar_test_maker(template, thumbnail):
     timestamp.rounded_rectangle([(5144, 1105), (5252, 1171)], 15, (0,0,0, 155))
     output = Image.alpha_composite(white_bg, blender)
     draw = ImageDraw.Draw(output)
-    draw.text((5161, 1118), "5:45", font= timestampfont)
+    if Videotimestamp != None:
+        draw.text((5161, 1118), Videotimestamp, font= timestampfont)
+    if Videotimestamp == None:
+        draw.text((5161, 1118), "5:45", font= timestampfont)
     return output
 
 
-def front_page_test_maker(template, thumbnail):
+def front_page_test_maker(template, thumbnail, Videotimestamp):
     white_bg = Image.new("RGBA",(5996, 3223), color = "white")
     blender = Image.new("RGBA",(5996, 3223), color = (0,0,0,0))
     timestampfont = ImageFont.truetype('Pillow/Tests/fonts/arialbd.ttf', size= 40)
@@ -33,7 +36,10 @@ def front_page_test_maker(template, thumbnail):
     timestamp.rounded_rectangle([(2394,1525), (2502,1593)], 15, (0,0,0, 155))
     output = Image.alpha_composite(white_bg, blender)
     draw = ImageDraw.Draw(output)
-    draw.text((2409, 1535), "5:45", font= timestampfont)
+    if Videotimestamp != None:
+        draw.text((2409, 1535), Videotimestamp, font= timestampfont)
+    if Videotimestamp == None:
+        draw.text((2409, 1535), "5:45", font= timestampfont)
     return output
 
 def image_shower(name, select, filetype):
@@ -59,6 +65,7 @@ def main():
     testbuttonaccess2 = False
     showitnow1 = False
     showitnow2 = False
+    VideoTimeammount = None
     fadeaway = 0
     central_img_path= ""
     templ_img_path = ["C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemplateFiles\\YTVTemplate-1.png", 
@@ -208,7 +215,7 @@ def main():
         if thing == 4 and central_img_path != "" and testbuttonaccess1 == True:
             commandbar_displayer(screen, textdisplay1, "Loading Images...")
 
-        if thing == 9 and central_img_path != "" and os.listdir(tempstorage) != []:
+        if thing == 9 and central_img_path != "" and os.listdir("C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemporaryImageStorage") != []:
             commandbar_displayer(screen, textdisplay1, "Saving Images...")
 
         if thing == 10 or fadeaway > 0:
@@ -220,6 +227,9 @@ def main():
         pygame.display.flip()
 
         if thing == 3:
+            tempstorage = "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemporaryImageStorage"
+            for path in os.scandir(tempstorage):
+                os.remove(path.path)
             fileinput= tk.Tk()
             fileinput.withdraw()
             filepath = filedialog.askopenfilename(filetypes= [("PNG files", "*.png")])
@@ -244,10 +254,10 @@ def main():
                     newername = newpathname.replace(f"YTVTemplate-{ref}", filename[-1])
                     with (Image.open(file)) as template, (Image.open(central_img_path)) as thumbnail:
                         if ref <= 2:
-                            output = sidebar_test_maker(template, thumbnail)
+                            output = sidebar_test_maker(template, thumbnail, VideoTimeammount)
                             output.save(f"{newername}testVV{ref}{ext}")
                         if ref > 2:
-                            output = front_page_test_maker(template, thumbnail)
+                            output = front_page_test_maker(template, thumbnail, VideoTimeammount)
                             output.save(f"{newername}testVV{ref}{ext}")
                 if testbuttonaccess1 == True:
                     testbuttonaccess2 = True
@@ -274,6 +284,7 @@ def main():
                     os.remove(path.path)
             central_img_path = ""
             showitnow1 = False
+            VideoTimeammount = None
 
         if thing == 10:
             tempstorage = "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemporaryImageStorage"
@@ -281,6 +292,16 @@ def main():
                 os.remove(path.path)
             central_img_path = ""
             showitnow1 = False
+
+        if thing == 12:
+            VideoTimeammountsuggested = simpledialog.askstring("Insert Video Time", "How long is the video (Must be in 00:00:00 format)")
+            VideoTimeammount = ""
+            for character in VideoTimeammountsuggested:
+                if character == "1" or character == "2" or character == "3" or character == "4" or character == "5" or character == "6":
+                    VideoTimeammount += character
+                if character == "7" or character == "8" or character == "9" or character == ":" or character == "0":
+                    VideoTimeammount += character
+            print(VideoTimeammount)
 
 
         # Keeping these for the sake of remembering which value goes where, if I want to change them later.
