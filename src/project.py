@@ -28,7 +28,6 @@ def sidebar_test_maker(template, thumbnail, Videotimestamp):
     else:
         Videotimestamp = None
         timestamp.rounded_rectangle([(5144, 1105), (5252, 1171)], 15, (0,0,0, 155))
-
     output = Image.alpha_composite(white_bg, blender)
     draw = ImageDraw.Draw(output)
     if Videotimestamp != None:
@@ -96,6 +95,7 @@ def main():
     textdisplay1 = pygame.font.SysFont('arial', 20)
     textdisplay2 = pygame.font.SysFont('arial', 45)
     textdisplay3 = pygame.font.SysFont('arial', 17)
+    textdisplay4 = pygame.font.SysFont('arial', 15)
     resolution = (800, 600)
     screen = pygame.display.set_mode(resolution)
     clock = pygame.time.Clock()
@@ -106,6 +106,7 @@ def main():
     showitnow2 = False
     VideoTimeammount = None
     fadeaway = 0
+    fadeaway2 = 0
     central_img_path= ""
     templ_img_path = ["C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemplateFiles\\YTVTemplate-1.png", 
                       "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemplateFiles\\YTVTemplate-2.png",
@@ -262,6 +263,10 @@ def main():
                 fadeaway += 15
             commandbar_displayer(screen, textdisplay1, "Files Cleared!")
             fadeaway -= 1
+
+        if fadeaway2 > 0:
+            commandbar_displayer(screen, textdisplay4, "Incorrect Timestamp Format. Char. Removed or Time reset")
+            fadeaway2 -= 1
         
         pygame.display.flip()
 
@@ -338,9 +343,15 @@ def main():
                 for character in VideoTimeammountsuggested:
                     if character == "1" or character == "2" or character == "3" or character == "4" or character == "5" or character == "6":
                         VideoTimeammount += character
-                    if character == "7" or character == "8" or character == "9" or character == ":" or character == "0":
+                    elif character == "7" or character == "8" or character == "9" or character == ":" or character == "0":
                         VideoTimeammount += character
+                    else:
+                        if fadeaway2 == 0:
+                            fadeaway2 += 15
+            if len(VideoTimeammount) > 8 or len(VideoTimeammount) < 4 or len(VideoTimeammount) == 6:
+                    fadeaway2 += 15
             print(VideoTimeammount)
+
 
 
         # Keeping these for the sake of remembering which value goes where, if I want to change them later.
