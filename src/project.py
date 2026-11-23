@@ -335,11 +335,12 @@ def main():
         if thing == 12:
             VideoTimeammountsuggested = simpledialog.askstring("Insert Video Time", "How long is the video (Must be in 00:00:00 format)")
             VideoTimeammount = ""
-            for character in VideoTimeammountsuggested:
-                if character == "1" or character == "2" or character == "3" or character == "4" or character == "5" or character == "6":
-                    VideoTimeammount += character
-                if character == "7" or character == "8" or character == "9" or character == ":" or character == "0":
-                    VideoTimeammount += character
+            if VideoTimeammountsuggested != None:
+                for character in VideoTimeammountsuggested:
+                    if character == "1" or character == "2" or character == "3" or character == "4" or character == "5" or character == "6":
+                        VideoTimeammount += character
+                    if character == "7" or character == "8" or character == "9" or character == ":" or character == "0":
+                        VideoTimeammount += character
             print(VideoTimeammount)
 
 
