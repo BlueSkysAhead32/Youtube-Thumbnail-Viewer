@@ -107,6 +107,7 @@ def main():
     VideoTimeammount = None
     fadeaway = 0
     fadeaway2 = 0
+    comparemode_on = False
     central_img_path= ""
     templ_img_path = ["C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemplateFiles\\YTVTemplate-1.png", 
                       "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemplateFiles\\YTVTemplate-2.png",
@@ -335,6 +336,20 @@ def main():
                 os.remove(path.path)
             central_img_path = ""
             showitnow1 = False
+
+        if thing == 11:
+            tempstorage = "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemporaryImageStorage"
+            for path in os.scandir(tempstorage):
+                os.remove(path.path)
+            central_img_path = ""
+            showitnow1 = False
+            if comparemode_on == False:
+                comparemode_on = True
+                pass
+            elif comparemode_on == True:
+                comparemode_on = False
+                pass
+            print(comparemode_on)
 
         if thing == 12:
             VideoTimeammountsuggested = simpledialog.askstring("Insert Video Time", "How long is the video (Must be in 00:00:00 format)")
