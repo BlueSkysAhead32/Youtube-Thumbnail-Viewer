@@ -80,6 +80,13 @@ def front_page_test_maker(template, thumbnail, Videotimestamp):
         draw.text((2409, 1535), "5:45", font= timestampfont)
     return output
 
+def file_comparison_maker(C_thumb1, C_thumb2):
+    white_bg = Image.new("RGBA", ((C_thumb1.width + C_thumb2.width), (C_thumb1.height + C_thumb2.height)), color= "white")
+    white_bg.paste(C_thumb1, (0,0))
+    white_bg.paste(C_thumb2, (C_thumb2.width, 0))
+    return white_bg
+
+
 def image_shower(name, select, filetype):
     with (Image.open(f"{name}testVV{select}{filetype}")) as img:
         img.show()
@@ -103,8 +110,13 @@ def main():
     running = True
     testbuttonaccess1 = False
     testbuttonaccess2 = False
+    testbuttonaccess3 = False
+    testbuttonaccess4 = False
+    testbuttonaccess5 = False
     showitnow1 = False
     showitnow2 = False
+    showitnow3 = False
+    showitnow4 = False
     VideoTimeammount = None
     fadeaway = 0
     fadeaway2 = 0
@@ -123,9 +135,6 @@ def main():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 click = pygame.Rect((mouselocation[0], mouselocation[1]), (1,1))
                 pygame.draw.rect(screen, "blue", click)
-                if click.colliderect(button[15]) and testbuttonaccess2 == False:
-                    print("blocked")
-                    pass
                 if click.colliderect(button[13]) and comparemode_on == True:
                     buttonclicked = True
                     thing = 13
@@ -135,6 +144,9 @@ def main():
                     buttonclicked = True
                     thing = 14
                     print("FileCompare2 clicked")
+                if click.colliderect(button[15]) and testbuttonaccess2 == False and testbuttonaccess5 == False:
+                    print("ultra blocked")
+                    pass
                 elif click.colliderect(button[3]):
                     if comparemode_on == False:
                         buttonclicked= True
@@ -193,11 +205,13 @@ def main():
                         buttonclicked = True
                         thing = 13
                         print("FileCompare1 clicked")
+                        testbuttonaccess3 = True
                 elif click.colliderect(button[14]):
                     if comparemode_on == True:
                         buttonclicked = True
                         thing = 14
                         print("FileCompare2 clicked")
+                        testbuttonaccess4 = True
             if event.type == pygame.QUIT:
                 tempstorage = "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemporaryImageStorage"
                 for path in os.scandir(tempstorage):
@@ -223,12 +237,32 @@ def main():
 
         for object in button:
             if place >= 3:
-                if testbuttonaccess1 == False and testbuttonaccess2 == False and place >= 5 and place < 9:
-                    pass
-                    pygame.draw.rect(screen, color[15], button[15])
-                elif testbuttonaccess1 == True and testbuttonaccess2 == False and place >= 5 and place < 9:
-                    pass
-                    pygame.draw.rect(screen, color[15], button[15])
+                if comparemode_on == False:
+                    if testbuttonaccess1 == False and testbuttonaccess2 == False and place >= 5 and place < 9:
+                        pass
+                        pygame.draw.rect(screen, color[15], button[15])
+                    elif testbuttonaccess1 == True and testbuttonaccess2 == False and place >= 5 and place < 9:
+                        pass
+                        pygame.draw.rect(screen, color[15], button[15])
+                if comparemode_on == True:
+                    if testbuttonaccess5 == False and place >= 5 and place < 9:
+                        pass
+                        pygame.draw.rect(screen, color[15], button[15])
+                    else:
+                        shadow = object.copy()
+                        if place < 9 or place == 13 or place == 14:
+                            newshadow = shadow.move(-5, 5)
+                        if place >= 9 and place != 13 and place != 14:
+                            newshadow = shadow.move(-3, 3)
+                        if place < 15:
+                            if comparemode_on == True: 
+                                if place == 3 or place == 6 or place == 7 or place == 8:
+                                    pass
+                                else:
+                                    pygame.draw.rect(screen, color2[place], newshadow, border_radius= borderR[place])
+                            else:
+                                if place < 13:
+                                    pygame.draw.rect(screen, color2[place], newshadow, border_radius= borderR[place])    
                 else:
                     shadow = object.copy()
                     if place < 9 or place == 13 or place == 14:
@@ -247,9 +281,11 @@ def main():
             place += 1
 
         for number in range(3, 15):
-            if testbuttonaccess1 == False and testbuttonaccess2 == False and section >= 5 and section < 9:
+            if comparemode_on == False and testbuttonaccess1 == False and testbuttonaccess2 == False and section >= 5 and section < 9:
                 pass
-            elif testbuttonaccess1 == True and testbuttonaccess2 == False and section >= 5 and section < 9:
+            elif comparemode_on == False and testbuttonaccess1 == True and testbuttonaccess2 == False and section >= 5 and section < 9:
+                pass
+            elif comparemode_on == True and testbuttonaccess5 == False and section >= 5 and section <9:
                 pass
             else:
                 if buttonclicked == True and number == thing:
@@ -276,21 +312,46 @@ def main():
             section += 1
 
         if showitnow1 == True:
-            if central_img_path == "":
-                pass
-            else:
-                display_central_filename = central_img_path.split("/")
-                selectedfilename = textdisplay1.render(f"File selected: {display_central_filename[-1]}", True, "white", wraplength= 250)
-                screen.blit(selectedfilename, (80, 450))
+            if comparemode_on == False:
+                if central_img_path == "":
+                    pass
+                else:
+                    display_central_filename = central_img_path.split("/")
+                    selectedfilename = textdisplay1.render(f"File selected: {display_central_filename[-1]}", True, "white", wraplength= 250)
+                    screen.blit(selectedfilename, (80, 450))
+        
+        if showitnow3 == True:
+            if comparemode_on == True:
+                if compare1_img_path == "":
+                    pass
+                else:
+                    display_compare1_filename = compare1_img_path.split("/")
+                    selectedcomp1name = textdisplay4.render(f"File selected: {display_compare1_filename[-1]}", True, "white", wraplength= 250)
+                    screen.blit(selectedcomp1name, (60, 180))
+        
+        if showitnow4 == True:
+            if comparemode_on == True:
+                if compare2_img_path == "":
+                    pass
+                else:
+                    display_compare2_filename = compare2_img_path.split("/")
+                    selectedcomp2name = textdisplay4.render(f"File selected: {display_compare2_filename[-1]}", True, "white", wraplength= 250)
+                    screen.blit(selectedcomp2name, (60, 370))
 
         if showitnow1 == False:
                 if comparemode_on == False:
                     selectfiletext = textdisplay2.render("Click Here to Insert a .png File!", True, "white", wraplength= 350)
                     screen.blit(selectfiletext, (60, 250))
-                if comparemode_on == True:
-                    comparefiletext = textdisplay5.render("Click Here to Insert a Thumbnail or Test File!", True, "white", wraplength= 250)
-                    screen.blit(comparefiletext, (60, 180))
-                    screen.blit(comparefiletext, (60, 370))
+
+        if showitnow3 == False:
+            if comparemode_on == True:
+                comparefiletext = textdisplay5.render("Click Here to Insert a Thumbnail or Test File!", True, "white", wraplength= 250)
+                screen.blit(comparefiletext, (60, 180))
+
+        if showitnow4 == False:
+            if comparemode_on == True:
+                comparefiletext = textdisplay5.render("Click Here to Insert a Thumbnail or Test File!", True, "white", wraplength= 250)
+                screen.blit(comparefiletext, (60, 370))
 
         if showitnow2 == True:
             position = 0
@@ -333,26 +394,43 @@ def main():
                 showitnow1 = False
 
         if thing == 4:
-            if central_img_path == "":
-                pass
-            else:
-                ref = 0
-                for file in templ_img_path:
-                    ref +=1
-                    templname, ext = os.path.splitext(file)
-                    draftname, ext = os.path.splitext(central_img_path)
+            if comparemode_on == False:
+                if central_img_path == "":
+                    pass
+                else:
+                    ref = 0
+                    for file in templ_img_path:
+                        ref +=1
+                        templname, ext = os.path.splitext(file)
+                        draftname, ext = os.path.splitext(central_img_path)
+                        newpathname = templname.replace("\\TemplateFiles", "\\TemporaryImageStorage")
+                        filename = draftname.split("/")
+                        newername = newpathname.replace(f"YTVTemplate-{ref}", filename[-1])
+                        with (Image.open(file)) as template, (Image.open(central_img_path)) as thumbnail:
+                            if ref <= 2:
+                                output = sidebar_test_maker(template, thumbnail, VideoTimeammount)
+                                output.save(f"{newername}testVV{ref}{ext}")
+                            if ref > 2:
+                                output = front_page_test_maker(template, thumbnail, VideoTimeammount)
+                                output.save(f"{newername}testVV{ref}{ext}")
+                    if testbuttonaccess1 == True:
+                        testbuttonaccess2 = True
+                        showitnow2 = True
+            if comparemode_on == True:
+                if compare1_img_path == "" or compare2_img_path == "":
+                    pass
+                else:
+                    templname, ext = os.path.splitext(templ_img_path[0])
+                    draftname1, ext = os.path.splitext(compare1_img_path)
+                    draftname2, ext = os.path.splitext(compare2_img_path)
                     newpathname = templname.replace("\\TemplateFiles", "\\TemporaryImageStorage")
-                    filename = draftname.split("/")
-                    newername = newpathname.replace(f"YTVTemplate-{ref}", filename[-1])
-                    with (Image.open(file)) as template, (Image.open(central_img_path)) as thumbnail:
-                        if ref <= 2:
-                            output = sidebar_test_maker(template, thumbnail, VideoTimeammount)
-                            output.save(f"{newername}testVV{ref}{ext}")
-                        if ref > 2:
-                            output = front_page_test_maker(template, thumbnail, VideoTimeammount)
-                            output.save(f"{newername}testVV{ref}{ext}")
-                if testbuttonaccess1 == True:
-                    testbuttonaccess2 = True
+                    filename1 = draftname1.split("/")
+                    filename2 = draftname2.split("/")
+                    newername = newpathname.replace(f"YTVTemplate-1", f"{filename1[-1]}and{filename2[-1]}compare")
+                    with (Image.open(compare1_img_path)) as thumbnailcomp1, (Image.open(compare2_img_path)) as thumbnailcomp2:
+                        output = file_comparison_maker(thumbnailcomp1, thumbnailcomp2)
+                        output.save(f"{newername}testVV1{ext}")
+                    testbuttonaccess5 = True
                     showitnow2 = True
 
         if thing in range(5,9):
@@ -413,6 +491,27 @@ def main():
             if len(VideoTimeammount) > 8 or len(VideoTimeammount) < 4 or len(VideoTimeammount) == 6:
                     fadeaway2 += 15
             print(VideoTimeammount)
+
+        if thing == 13 and comparemode_on == True:
+            tempstorage = "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemporaryImageStorage"
+            for path in os.scandir(tempstorage):
+                os.remove(path.path)
+            fileinput= tk.Tk()
+            fileinput.withdraw()
+            compare1path = filedialog.askopenfilename(filetypes= [("PNG files", "*.png")])
+            compare1_img_path = compare1path
+            showitnow3 = True
+
+        if thing == 14 and comparemode_on == True:
+            tempstorage = "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemporaryImageStorage"
+            for path in os.scandir(tempstorage):
+                os.remove(path.path)
+            fileinput= tk.Tk()
+            fileinput.withdraw()
+            compare2path = filedialog.askopenfilename(filetypes= [("PNG files", "*.png")])
+            compare2_img_path = compare2path
+            showitnow4 = True
+
 
 
 
