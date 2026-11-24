@@ -96,6 +96,7 @@ def main():
     textdisplay2 = pygame.font.SysFont('arial', 45)
     textdisplay3 = pygame.font.SysFont('arial', 17)
     textdisplay4 = pygame.font.SysFont('arial', 15)
+    textdisplay5 = pygame.font.SysFont('arial', 30)
     resolution = (800, 600)
     screen = pygame.display.set_mode(resolution)
     clock = pygame.time.Clock()
@@ -122,15 +123,25 @@ def main():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 click = pygame.Rect((mouselocation[0], mouselocation[1]), (1,1))
                 pygame.draw.rect(screen, "blue", click)
-                if click.colliderect(button[13]) and testbuttonaccess2 == False:
+                if click.colliderect(button[15]) and testbuttonaccess2 == False:
                     print("blocked")
                     pass
+                if click.colliderect(button[13]) and comparemode_on == True:
+                    buttonclicked = True
+                    thing = 13
+                    print("FileCompare1 clicked")
+                    pass
+                if click.colliderect(button[14]) and comparemode_on == True:
+                    buttonclicked = True
+                    thing = 14
+                    print("FileCompare2 clicked")
                 elif click.colliderect(button[3]):
-                    buttonclicked= True
-                    thing = 3
-                    testbuttonaccess2 = False
-                    print("file select")
-                    testbuttonaccess1 = True
+                    if comparemode_on == False:
+                        buttonclicked= True
+                        thing = 3
+                        testbuttonaccess2 = False
+                        print("file select")
+                        testbuttonaccess1 = True
                 elif click.colliderect(button[4]):
                     print("convert files")
                     print(central_img_path)
@@ -141,17 +152,20 @@ def main():
                     buttonclicked= True
                     thing = 5
                 elif click.colliderect(button[6]):
-                    print("show image 2")
-                    buttonclicked= True
-                    thing = 6
+                    if comparemode_on == False:
+                        print("show image 2")
+                        buttonclicked= True
+                        thing = 6
                 elif click.colliderect(button[7]):
-                    print("show image 3")
-                    buttonclicked= True
-                    thing = 7
+                    if comparemode_on == False:
+                        print("show image 3")
+                        buttonclicked= True
+                        thing = 7
                 elif click.colliderect(button[8]):
-                    print("show image 4")
-                    buttonclicked= True
-                    thing = 8
+                    if comparemode_on == False:
+                        print("show image 4")
+                        buttonclicked= True
+                        thing = 8
                 elif click.colliderect(button[9]):
                     print("save files")
                     buttonclicked= True
@@ -174,6 +188,16 @@ def main():
                     print("Insert Timestamp")
                     buttonclicked= True
                     thing = 12
+                elif click.colliderect(button[13]):
+                    if comparemode_on == True:
+                        buttonclicked = True
+                        thing = 13
+                        print("FileCompare1 clicked")
+                elif click.colliderect(button[14]):
+                    if comparemode_on == True:
+                        buttonclicked = True
+                        thing = 14
+                        print("FileCompare2 clicked")
             if event.type == pygame.QUIT:
                 tempstorage = "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemporaryImageStorage"
                 for path in os.scandir(tempstorage):
@@ -187,12 +211,12 @@ def main():
         button = [pygame.Rect(( 25, 150), (750, 400)), pygame.Rect((25, 20), (750, 100)), pygame.Rect((350, 150), (100, 400)), pygame.Rect((40, 165), (295, 370)), 
                   pygame.Rect((362, 312), (75, 75)), pygame.Rect((700, 175), (50, 50)), pygame.Rect((700, 275), (50, 50)), pygame.Rect((700 , 375), (50, 50)), 
                   pygame.Rect((700, 475), (50, 50)), pygame.Rect((450, 560), (150, 30)), pygame.Rect((625, 560), (150, 30)), pygame.Rect((400, 70), (170, 40)), 
-                  pygame.Rect((590, 70), (170, 40)), pygame.Rect((570,150), (200, 395))]
+                  pygame.Rect((590, 70), (170, 40)), pygame.Rect((40, 165), (295, 175)), pygame.Rect((40, 355), (295, 175)), pygame.Rect((570,150), (200, 395))]
         color = [(80, 80, 80, 255), (25, 25, 25, 255), (125, 125, 125, 255), (40, 40, 40), (175, 175, 175), (200, 200, 200), (200, 200, 200), (200, 200, 200), 
-                 (200, 200, 200), (235, 235, 235), (235, 235, 235), (20, 20, 20), (20, 20, 20), (80, 80, 80, 255)]
+                 (200, 200, 200), (235, 235, 235), (235, 235, 235), (20, 20, 20), (20, 20, 20), (40, 40, 40), (40, 40, 40),(80, 80, 80, 255)]
         color2 = [(70, 70, 70), (15, 15, 15), (115, 115, 115), (30, 30, 30), (155, 155, 155), (170, 170, 170), (170, 170, 170), (170, 170, 170), 
-                         (170, 170, 170), (175, 175, 175), (175, 175, 175), (10, 10, 10), (10, 10, 10), (80, 80, 80, 255)]
-        borderR = [7, 0, 0, 15, 10, 10, 10, 10, 10, 7, 7, 7, 7, 0]
+                         (170, 170, 170), (175, 175, 175), (175, 175, 175), (10, 10, 10), (10, 10, 10), (30, 30, 30), (30, 30, 30), (80, 80, 80, 255)]
+        borderR = [7, 0, 0, 15, 10, 10, 10, 10, 10, 7, 7, 7, 7, 7, 7, 0]
 
         for number in range(0, 3):  
             pygame.draw.rect(screen, color[number], button[number], border_radius= borderR[number])
@@ -201,21 +225,28 @@ def main():
             if place >= 3:
                 if testbuttonaccess1 == False and testbuttonaccess2 == False and place >= 5 and place < 9:
                     pass
-                    pygame.draw.rect(screen, color[13], button[13])
+                    pygame.draw.rect(screen, color[15], button[15])
                 elif testbuttonaccess1 == True and testbuttonaccess2 == False and place >= 5 and place < 9:
                     pass
-                    pygame.draw.rect(screen, color[13], button[13])
+                    pygame.draw.rect(screen, color[15], button[15])
                 else:
                     shadow = object.copy()
-                    if place < 9:
+                    if place < 9 or place == 13 or place == 14:
                         newshadow = shadow.move(-5, 5)
-                    if place >= 9:
+                    if place >= 9 and place != 13 and place != 14:
                         newshadow = shadow.move(-3, 3)
-                    if place < 13:
-                        pygame.draw.rect(screen, color2[place], newshadow, border_radius= borderR[place])
+                    if place < 15:
+                        if comparemode_on == True: 
+                            if place == 3 or place == 6 or place == 7 or place == 8:
+                                pass
+                            else:
+                                pygame.draw.rect(screen, color2[place], newshadow, border_radius= borderR[place])
+                        else:
+                            if place < 13:
+                                pygame.draw.rect(screen, color2[place], newshadow, border_radius= borderR[place])
             place += 1
-        
-        for number in range(3, 13):
+
+        for number in range(3, 15):
             if testbuttonaccess1 == False and testbuttonaccess2 == False and section >= 5 and section < 9:
                 pass
             elif testbuttonaccess1 == True and testbuttonaccess2 == False and section >= 5 and section < 9:
@@ -223,13 +254,24 @@ def main():
             else:
                 if buttonclicked == True and number == thing:
                     tempbutton = button[thing].copy()
-                    if place < 9:
+                    if place < 9 or place == 13 or place == 14:
                         newpos = tempbutton.move(-5, 5)
-                    if place >= 9:
+                    if place >= 9 and place != 13 or place != 14:
                         newpos = tempbutton.move(-3, 3)
-                    pygame.draw.rect(screen, color[number], newpos, border_radius= borderR[number])
+                    if comparemode_on == True:
+                        if section == 3 or section == 6 or section == 7 or section == 8:
+                            pass
+                        else:
+                            pygame.draw.rect(screen, color[number], newpos, border_radius= borderR[number])
+                    else:
+                        pygame.draw.rect(screen, color[number], newpos, border_radius= borderR[number])
                 else:
-                    if section < 13:
+                    if comparemode_on == True:
+                        if section == 3 or section == 6 or section == 7 or section == 8:
+                            pass
+                        elif section < 15:
+                            pygame.draw.rect(screen, color[number], button[number], border_radius= borderR[number])
+                    elif section < 13:
                         pygame.draw.rect(screen, color[number], button[number], border_radius= borderR[number])
             section += 1
 
@@ -242,8 +284,13 @@ def main():
                 screen.blit(selectedfilename, (80, 450))
 
         if showitnow1 == False:
-            selectfiletext = textdisplay2.render("Click Here to Insert a .png File!", True, "white", wraplength= 350)
-            screen.blit(selectfiletext, (60, 250))
+                if comparemode_on == False:
+                    selectfiletext = textdisplay2.render("Click Here to Insert a .png File!", True, "white", wraplength= 350)
+                    screen.blit(selectfiletext, (60, 250))
+                if comparemode_on == True:
+                    comparefiletext = textdisplay5.render("Click Here to Insert a Thumbnail or Test File!", True, "white", wraplength= 250)
+                    screen.blit(comparefiletext, (60, 180))
+                    screen.blit(comparefiletext, (60, 370))
 
         if showitnow2 == True:
             position = 0
@@ -268,7 +315,7 @@ def main():
         if fadeaway2 > 0:
             commandbar_displayer(screen, textdisplay4, "Incorrect Timestamp Format. Char. Removed or Time reset")
             fadeaway2 -= 1
-        
+
         pygame.display.flip()
 
         if thing == 3:
@@ -381,6 +428,8 @@ def main():
         # clearbutton = pygame.Rect((625, 560), (150, 30))
         # comparebutton = pygame.Rect((400, 70), (170, 40))
         # timebutton = pygame.Rect((590, 70), (170, 40))
+        #comparebutton1 = pygame.Rect((40, 165), (295, 175))
+        #comparebutton2 = pygame.Rect((40, 355), (295, 175))
         # pygame.draw.rect(screen, (80, 80, 80, 255), canvas)
         # pygame.draw.rect(screen, (40, 40, 40, 255), options)
         # pygame.draw.rect(screen, (125, 125, 125, 255), divider)
@@ -391,6 +440,9 @@ def main():
         #pygame.draw.rect(screen, (235, 235, 235), clearbutton, border_radius= 7)
         #pygame.draw.rect(screen, (20, 20, 20), comparebutton, border_radius= 7)
         #pygame.draw.rect(screen, (20, 20, 20), timebutton, border_radius= 7)
+        #pygame.draw.rect(screen, (40, 40, 40), comparebutton1, border_radius = 7)
+        #pygame.draw.rect(screen, (40, 40, 40), comparebutton2, border_radius = 7)
+
         dt = clock.tick(12)
 
 
