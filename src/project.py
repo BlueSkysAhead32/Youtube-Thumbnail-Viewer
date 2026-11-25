@@ -582,6 +582,7 @@ def main():
         #pygame.draw.rect(screen, (20, 20, 20), timebutton, border_radius= 7)
         #pygame.draw.rect(screen, (40, 40, 40), comparebutton1, border_radius = 7)
         #pygame.draw.rect(screen, (40, 40, 40), comparebutton2, border_radius = 7)
+        dt = clock.tick(12)
 
 if __name__ == "__main__":
     main()
