@@ -112,6 +112,7 @@ def main():
     textdisplay3 = pygame.font.SysFont('arial', 17)
     textdisplay4 = pygame.font.SysFont('arial', 15)
     textdisplay5 = pygame.font.SysFont('arial', 30)
+    textdisplay6 = pygame.font.SysFont('arial', 19)
     resolution = (800, 600)
     screen = pygame.display.set_mode(resolution)
     clock = pygame.time.Clock()
@@ -123,7 +124,7 @@ def main():
     showitnow2 = False
     showitnow3 = False
     showitnow4 = False
-    VideoTimeammount = None
+    VideoTimeammount = ""
     fadeaway = 0
     fadeaway2 = 0
     fadeaway3 = 0
@@ -360,6 +361,23 @@ def main():
                 testimagename = textdisplay3.render(f"{file.name}", True, "white", wraplength = 250)
                 screen.blit(testimagename, locations[position])
                 position += 1
+
+        if comparemode_on == False:
+            img_mode_displayer = textdisplay6.render("Mode: Thumbnail", True, "white", wraplength= 400)
+            screen.blit(img_mode_displayer, (405, 80))
+
+        if comparemode_on == True:
+            img_mode_displayer = textdisplay6.render("Mode: Comparison", True, "white", wraplength= 400)
+            screen.blit(img_mode_displayer, (405, 80))
+
+        if comparemode_on == False:
+            VideoTimedisplayammount = VideoTimeammount
+            if VideoTimeammount == "":
+                VideoTimedisplayammount = "5:45"
+            if len(VideoTimeammount) > 8 or len(VideoTimeammount) < 3:
+                VideoTimedisplayammount = "5:45"
+            customthumbnail_displayer = textdisplay3.render(f"Thumbnail Time: {VideoTimedisplayammount}", True, "white", wraplength= 150)
+            screen.blit(customthumbnail_displayer, (590, 70))
 
         if thing == 4 and central_img_path != "" and testbuttonaccess1 == True:
             commandbar_displayer(screen, textdisplay1, "Loading Images...", 25)
