@@ -95,8 +95,12 @@ def image_shower(name, select, filetype):
     with (Image.open(f"{name}testVV{select}{filetype}")) as img:
         img.show()
 
-def commandbar_displayer(surface, textstyle, text):
-    what_happening = textstyle.render(f"{text}", True, "white", wraplength= 600)
+def commandbar_displayer(surface, textstyle, text, time):
+    opacity = (255 * (time/20))
+    if opacity > 255:
+        opacity = 255
+    what_happening = textstyle.render(f"{text}", True, (255, 255, 255), wraplength= 600)
+    what_happening.set_alpha(opacity)
     surface.blit(what_happening, (10, 575))
 def main():
     
@@ -139,75 +143,76 @@ def main():
         mouselocation = pygame.mouse.get_pos()
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
-                click = pygame.Rect((mouselocation[0], mouselocation[1]), (1,1))
-                pygame.draw.rect(screen, "blue", click)
-                if click.colliderect(button[13]) and comparemode_on == True:
-                    buttonclicked = True
-                    thing = 13
-                    testbuttonaccess5 = False
-                    print("FileCompare1 clicked")
-                    pass
-                if click.colliderect(button[14]) and comparemode_on == True:
-                    buttonclicked = True
-                    thing = 14
-                    testbuttonaccess5 = False
-                    print("FileCompare2 clicked")
-                if click.colliderect(button[15]) and testbuttonaccess2 == False and testbuttonaccess5 == False:
-                    print("ultra blocked")
-                    pass
-                elif click.colliderect(button[3]):
-                    if comparemode_on == False:
+                if event.button in (1, 2, 3):
+                    click = pygame.Rect((mouselocation[0], mouselocation[1]), (1,1))
+                    pygame.draw.rect(screen, "blue", click)
+                    if click.colliderect(button[13]) and comparemode_on == True:
+                        buttonclicked = True
+                        thing = 13
+                        testbuttonaccess5 = False
+                        print("FileCompare1 clicked")
+                        pass
+                    if click.colliderect(button[14]) and comparemode_on == True:
+                        buttonclicked = True
+                        thing = 14
+                        testbuttonaccess5 = False
+                        print("FileCompare2 clicked")
+                    if click.colliderect(button[15]) and testbuttonaccess2 == False and testbuttonaccess5 == False:
+                        print("ultra blocked")
+                        pass
+                    elif click.colliderect(button[3]):
+                        if comparemode_on == False:
+                            buttonclicked= True
+                            thing = 3
+                            testbuttonaccess2 = False
+                            print("file select")
+                            testbuttonaccess1 = True
+                    elif click.colliderect(button[4]):
+                        print("convert files")
+                        print(central_img_path)
                         buttonclicked= True
-                        thing = 3
+                        thing = 4
+                    elif click.colliderect(button[5]):
+                        print("show image 1")
+                        buttonclicked= True
+                        thing = 5
+                    elif click.colliderect(button[6]):
+                        if comparemode_on == False:
+                            print("show image 2")
+                            buttonclicked= True
+                            thing = 6
+                    elif click.colliderect(button[7]):
+                        if comparemode_on == False:
+                            print("show image 3")
+                            buttonclicked= True
+                            thing = 7
+                    elif click.colliderect(button[8]):
+                        if comparemode_on == False:
+                            print("show image 4")
+                            buttonclicked= True
+                            thing = 8
+                    elif click.colliderect(button[9]):
+                        print("save files")
+                        buttonclicked= True
+                        thing = 9
+                        testbuttonaccess1 = False
                         testbuttonaccess2 = False
-                        print("file select")
-                        testbuttonaccess1 = True
-                elif click.colliderect(button[4]):
-                    print("convert files")
-                    print(central_img_path)
-                    buttonclicked= True
-                    thing = 4
-                elif click.colliderect(button[5]):
-                    print("show image 1")
-                    buttonclicked= True
-                    thing = 5
-                elif click.colliderect(button[6]):
-                    if comparemode_on == False:
-                        print("show image 2")
+                    elif click.colliderect(button[10]):
+                        print("clear all files")
                         buttonclicked= True
-                        thing = 6
-                elif click.colliderect(button[7]):
-                    if comparemode_on == False:
-                        print("show image 3")
+                        thing = 10
+                        testbuttonaccess1 = False
+                        testbuttonaccess2 = False
+                    elif click.colliderect(button[11]):
+                        print("Switch to compare mode")
                         buttonclicked= True
-                        thing = 7
-                elif click.colliderect(button[8]):
-                    if comparemode_on == False:
-                        print("show image 4")
+                        thing = 11
+                        testbuttonaccess1 = False
+                        testbuttonaccess2 = False
+                    elif click.colliderect(button[12]):
+                        print("Insert Timestamp")
                         buttonclicked= True
-                        thing = 8
-                elif click.colliderect(button[9]):
-                    print("save files")
-                    buttonclicked= True
-                    thing = 9
-                    testbuttonaccess1 = False
-                    testbuttonaccess2 = False
-                elif click.colliderect(button[10]):
-                    print("clear all files")
-                    buttonclicked= True
-                    thing = 10
-                    testbuttonaccess1 = False
-                    testbuttonaccess2 = False
-                elif click.colliderect(button[11]):
-                    print("Switch to compare mode")
-                    buttonclicked= True
-                    thing = 11
-                    testbuttonaccess1 = False
-                    testbuttonaccess2 = False
-                elif click.colliderect(button[12]):
-                    print("Insert Timestamp")
-                    buttonclicked= True
-                    thing = 12
+                        thing = 12
             if event.type == pygame.QUIT:
                 for path in os.scandir(tempstorage):
                     os.remove(path.path)
@@ -357,29 +362,29 @@ def main():
                 position += 1
 
         if thing == 4 and central_img_path != "" and testbuttonaccess1 == True:
-            commandbar_displayer(screen, textdisplay1, "Loading Images...")
+            commandbar_displayer(screen, textdisplay1, "Loading Images...", 25)
 
         if thing == 9 and central_img_path != "" and os.listdir("C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemporaryImageStorage") != []:
-            commandbar_displayer(screen, textdisplay1, "Saving Images...")
+            commandbar_displayer(screen, textdisplay1, "Saving Images...", 25)
 
         if thing == 4 and compare1_img_path != "" and compare2_img_path != "":
-            commandbar_displayer(screen, textdisplay1, "Loading Comparison Image...")
+            commandbar_displayer(screen, textdisplay1, "Loading Comparison Image...", 25)
 
         if thing == 9 and compare1_img_path != "" and compare2_img_path != "" and os.listdir("C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemporaryImageStorage") != []:
-            commandbar_displayer(screen, textdisplay1, "Saving Comparison Image...")
+            commandbar_displayer(screen, textdisplay1, "Saving Comparison Image...", 25)
 
         if thing == 10 or fadeaway > 0:
             if fadeaway == 0:
-                fadeaway += 15
-            commandbar_displayer(screen, textdisplay1, "Files Cleared!")
+                fadeaway = 25
+            commandbar_displayer(screen, textdisplay1, "Files Cleared!", fadeaway)
             fadeaway -= 1
 
         if fadeaway2 > 0:
-            commandbar_displayer(screen, textdisplay4, "Incorrect Timestamp Format. Char. Removed or Time reset")
+            commandbar_displayer(screen, textdisplay4, "Incorrect Timestamp Format. Char. Removed or Time reset", fadeaway2)
             fadeaway2 -= 1
 
         if fadeaway3 > 0:
-            commandbar_displayer(screen, textdisplay1, "Error: One or more required files not included.")
+            commandbar_displayer(screen, textdisplay1, "Error: One or more required files not included.", fadeaway3)
             fadeaway3 -= 1
 
         pygame.display.flip()
@@ -421,7 +426,7 @@ def main():
                         showitnow2 = True
             if comparemode_on == True:
                 if compare1_img_path == "" or compare2_img_path == "":
-                    fadeaway3 = 20
+                    fadeaway3 = 25
                     pass
                 else:
                     templname, ext = os.path.splitext(templ_img_path[0])
@@ -443,7 +448,7 @@ def main():
 
         if thing == 9:
             if os.listdir(tempstorage) == []:
-                fadeaway3 = 20
+                fadeaway3 = 25
                 pass
             else:
                 fileexport = tk.Tk()
@@ -488,6 +493,7 @@ def main():
             showitnow3 = False
             showitnow4 = False
             showitnow1 = False
+            fadeaway = 25
             if comparemode_on == False:
                 comparemode_on = True
                 pass
@@ -507,9 +513,9 @@ def main():
                         VideoTimeammount += character
                     else:
                         if fadeaway2 == 0:
-                            fadeaway2 += 15
+                            fadeaway2 = 25
             if len(VideoTimeammount) > 8 or len(VideoTimeammount) < 4 or len(VideoTimeammount) == 6:
-                    fadeaway2 += 15
+                    fadeaway2 = 25
             print(VideoTimeammount)
 
         if thing == 13 and comparemode_on == True:
@@ -535,8 +541,6 @@ def main():
                 showitnow4 = True
             else:
                 showitnow4 = False
-
-
 
 
         # Keeping these for the sake of remembering which value goes where, if I want to change them later.
