@@ -81,9 +81,13 @@ def front_page_test_maker(template, thumbnail, Videotimestamp):
     return output
 
 def file_comparison_maker(C_thumb1, C_thumb2):
-    white_bg = Image.new("RGBA", ((C_thumb1.width + C_thumb2.width), (C_thumb1.height + C_thumb2.height)), color= "white")
+    if C_thumb1.height >= C_thumb2.height:
+        tallerthumbnail = C_thumb1.height
+    if C_thumb1.height < C_thumb2.height:
+        tallerthumbnail = C_thumb2.height
+    white_bg = Image.new("RGBA", ((C_thumb1.width + C_thumb2.width), (tallerthumbnail)), color= "white")
     white_bg.paste(C_thumb1, (0,0))
-    white_bg.paste(C_thumb2, (C_thumb2.width, 0))
+    white_bg.paste(C_thumb2, (C_thumb1.width, 0))
     return white_bg
 
 
@@ -453,6 +457,11 @@ def main():
                         done.save(finalplace)
                     os.remove(path.path)
             central_img_path = ""
+            compare1_img_path = ""
+            compare2_img_path = ""
+            testbuttonaccess5 = False
+            showitnow3 = False
+            showitnow4 = False
             showitnow1 = False
 
         if thing == 10:
@@ -460,6 +469,11 @@ def main():
             for path in os.scandir(tempstorage):
                 os.remove(path.path)
             central_img_path = ""
+            compare1_img_path = ""
+            compare2_img_path = ""
+            testbuttonaccess5 = False
+            showitnow3 = False
+            showitnow4 = False
             showitnow1 = False
 
         if thing == 11:
@@ -467,6 +481,11 @@ def main():
             for path in os.scandir(tempstorage):
                 os.remove(path.path)
             central_img_path = ""
+            compare1_img_path = ""
+            compare2_img_path = ""
+            testbuttonaccess5 = False
+            showitnow3 = False
+            showitnow4 = False
             showitnow1 = False
             if comparemode_on == False:
                 comparemode_on = True
@@ -500,7 +519,10 @@ def main():
             fileinput.withdraw()
             compare1path = filedialog.askopenfilename(filetypes= [("PNG files", "*.png")])
             compare1_img_path = compare1path
-            showitnow3 = True
+            if compare1_img_path != "":
+                showitnow3 = True
+            else:
+                showitnow3 = False
 
         if thing == 14 and comparemode_on == True:
             tempstorage = "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemporaryImageStorage"
@@ -510,7 +532,10 @@ def main():
             fileinput.withdraw()
             compare2path = filedialog.askopenfilename(filetypes= [("PNG files", "*.png")])
             compare2_img_path = compare2path
-            showitnow4 = True
+            if compare2_img_path != "":
+                showitnow4 = True
+            else:
+                showitnow4 = False
 
 
 
