@@ -244,7 +244,22 @@ def main():
                     elif testbuttonaccess1 == True and testbuttonaccess2 == False and place >= 5 and place < 9:
                         pass
                         pygame.draw.rect(screen, color[15], button[15])
-                if comparemode_on == True:
+                    else:
+                        shadow = object.copy()
+                        if place < 9 or place == 13 or place == 14:
+                            newshadow = shadow.move(-5, 5)
+                        if place >= 9 and place != 13 and place != 14:
+                            newshadow = shadow.move(-3, 3)
+                        if place < 15:
+                            if comparemode_on == True: 
+                                if place == 3 or place == 6 or place == 7 or place == 8:
+                                    pass
+                                else:
+                                    pygame.draw.rect(screen, color2[place], newshadow, border_radius= borderR[place])
+                            else:
+                                if place < 13:
+                                    pygame.draw.rect(screen, color2[place], newshadow, border_radius= borderR[place])
+                elif comparemode_on == True:
                     if testbuttonaccess5 == False and place >= 5 and place < 9:
                         pass
                         pygame.draw.rect(screen, color[15], button[15])
@@ -262,22 +277,7 @@ def main():
                                     pygame.draw.rect(screen, color2[place], newshadow, border_radius= borderR[place])
                             else:
                                 if place < 13:
-                                    pygame.draw.rect(screen, color2[place], newshadow, border_radius= borderR[place])    
-                else:
-                    shadow = object.copy()
-                    if place < 9 or place == 13 or place == 14:
-                        newshadow = shadow.move(-5, 5)
-                    if place >= 9 and place != 13 and place != 14:
-                        newshadow = shadow.move(-3, 3)
-                    if place < 15:
-                        if comparemode_on == True: 
-                            if place == 3 or place == 6 or place == 7 or place == 8:
-                                pass
-                            else:
-                                pygame.draw.rect(screen, color2[place], newshadow, border_radius= borderR[place])
-                        else:
-                            if place < 13:
-                                pygame.draw.rect(screen, color2[place], newshadow, border_radius= borderR[place])
+                                    pygame.draw.rect(screen, color2[place], newshadow, border_radius= borderR[place])
             place += 1
 
         for number in range(3, 15):
