@@ -114,8 +114,6 @@ def main():
     running = True
     testbuttonaccess1 = False
     testbuttonaccess2 = False
-    testbuttonaccess3 = False
-    testbuttonaccess4 = False
     testbuttonaccess5 = False
     showitnow1 = False
     showitnow2 = False
@@ -209,13 +207,11 @@ def main():
                         buttonclicked = True
                         thing = 13
                         print("FileCompare1 clicked")
-                        testbuttonaccess3 = True
                 elif click.colliderect(button[14]):
                     if comparemode_on == True:
                         buttonclicked = True
                         thing = 14
                         print("FileCompare2 clicked")
-                        testbuttonaccess4 = True
             if event.type == pygame.QUIT:
                 tempstorage = "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemporaryImageStorage"
                 for path in os.scandir(tempstorage):
@@ -229,12 +225,12 @@ def main():
         button = [pygame.Rect(( 25, 150), (750, 400)), pygame.Rect((25, 20), (750, 100)), pygame.Rect((350, 150), (100, 400)), pygame.Rect((40, 165), (295, 370)), 
                   pygame.Rect((362, 312), (75, 75)), pygame.Rect((700, 175), (50, 50)), pygame.Rect((700, 275), (50, 50)), pygame.Rect((700 , 375), (50, 50)), 
                   pygame.Rect((700, 475), (50, 50)), pygame.Rect((450, 560), (150, 30)), pygame.Rect((625, 560), (150, 30)), pygame.Rect((400, 70), (170, 40)), 
-                  pygame.Rect((590, 70), (170, 40)), pygame.Rect((40, 165), (295, 175)), pygame.Rect((40, 355), (295, 175)), pygame.Rect((570,150), (200, 395))]
+                  pygame.Rect((590, 70), (170, 40)), pygame.Rect((40, 165), (295, 175)), pygame.Rect((40, 355), (295, 180)), pygame.Rect((570,150), (200, 395))]
         color = [(80, 80, 80, 255), (25, 25, 25, 255), (125, 125, 125, 255), (40, 40, 40), (175, 175, 175), (200, 200, 200), (200, 200, 200), (200, 200, 200), 
                  (200, 200, 200), (235, 235, 235), (235, 235, 235), (20, 20, 20), (20, 20, 20), (40, 40, 40), (40, 40, 40),(80, 80, 80, 255)]
         color2 = [(70, 70, 70), (15, 15, 15), (115, 115, 115), (30, 30, 30), (155, 155, 155), (170, 170, 170), (170, 170, 170), (170, 170, 170), 
                          (170, 170, 170), (175, 175, 175), (175, 175, 175), (10, 10, 10), (10, 10, 10), (30, 30, 30), (30, 30, 30), (80, 80, 80, 255)]
-        borderR = [7, 0, 0, 15, 10, 10, 10, 10, 10, 7, 7, 7, 7, 7, 7, 0]
+        borderR = [7, 0, 0, 15, 10, 10, 10, 10, 10, 7, 7, 7, 7, 15, 15, 0]
 
         for number in range(0, 3):  
             pygame.draw.rect(screen, color[number], button[number], border_radius= borderR[number])
@@ -370,6 +366,12 @@ def main():
 
         if thing == 9 and central_img_path != "" and os.listdir("C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemporaryImageStorage") != []:
             commandbar_displayer(screen, textdisplay1, "Saving Images...")
+
+        if thing == 4 and compare1_img_path != "" and compare2_img_path != "":
+            commandbar_displayer(screen, textdisplay1, "Loading Comparison Image...")
+
+        if thing == 9 and compare1_img_path != "" and compare2_img_path != "" and os.listdir("C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemporaryImageStorage") != []:
+            commandbar_displayer(screen, textdisplay1, "Saving Comparison Image...")
 
         if thing == 10 or fadeaway > 0:
             if fadeaway == 0:
