@@ -43,7 +43,6 @@ def sidebar_test_maker(template, thumbnail, Videotimestamp):
         draw.text((5161, 1118), "5:45", font= timestampfont)
     return output
 
-
 def front_page_test_maker(template, thumbnail, Videotimestamp):
     white_bg = Image.new("RGBA",(5996, 3223), color = "white")
     blender = Image.new("RGBA",(5996, 3223), color = (0,0,0,0))
@@ -90,7 +89,6 @@ def file_comparison_maker(C_thumb1, C_thumb2):
     white_bg.paste(C_thumb2, (C_thumb1.width, 0))
     return white_bg
 
-
 def image_shower(name, select, filetype):
     with (Image.open(f"{name}testVV{select}{filetype}")) as img:
         img.show()
@@ -102,6 +100,7 @@ def commandbar_displayer(surface, textstyle, text, time):
     what_happening = textstyle.render(f"{text}", True, (255, 255, 255), wraplength= 600)
     what_happening.set_alpha(opacity)
     surface.blit(what_happening, (10, 575))
+
 def main():
     
     pygame.init()
@@ -414,7 +413,6 @@ def main():
             fileinput.withdraw()
             filepath = filedialog.askopenfilename(filetypes= [("PNG files", "*.png")])
             central_img_path = filepath
-            print(central_img_path)
             if central_img_path != "":
                 showitnow1 = True
             else:
@@ -518,7 +516,6 @@ def main():
             elif comparemode_on == True:
                 comparemode_on = False
                 pass
-            print(comparemode_on)
 
         if thing == 12:
             VideoTimeammountsuggested = simpledialog.askstring("Insert Video Time", "How long is the video (Must be in 00:00:00 format)")
@@ -534,7 +531,6 @@ def main():
                             fadeaway2 = 25
             if len(VideoTimeammount) > 8 or len(VideoTimeammount) < 4 or len(VideoTimeammount) == 6:
                     fadeaway2 = 25
-            print(VideoTimeammount)
 
         if thing == 13 and comparemode_on == True:
             for path in os.scandir(tempstorage):
@@ -559,7 +555,6 @@ def main():
                 showitnow4 = True
             else:
                 showitnow4 = False
-
 
         # Keeping these for the sake of remembering which value goes where, if I want to change them later.
 
@@ -587,9 +582,6 @@ def main():
         #pygame.draw.rect(screen, (20, 20, 20), timebutton, border_radius= 7)
         #pygame.draw.rect(screen, (40, 40, 40), comparebutton1, border_radius = 7)
         #pygame.draw.rect(screen, (40, 40, 40), comparebutton2, border_radius = 7)
-
-        dt = clock.tick(12)
-
 
 if __name__ == "__main__":
     main()
