@@ -122,13 +122,17 @@ def main():
     VideoTimeammount = None
     fadeaway = 0
     fadeaway2 = 0
+    fadeaway3 = 0
     comparemode_on = False
     central_img_path= ""
+    compare1_img_path= ""
+    compare2_img_path= ""
     templ_img_path = ["C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemplateFiles\\YTVTemplate-1.png", 
                       "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemplateFiles\\YTVTemplate-2.png",
                       "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemplateFiles\\YTVTemplate-3.png",
                       "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemplateFiles\\YTVTemplate-4.png"
                       ]
+    tempstorage = "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemporaryImageStorage"
     while running:
         buttonclicked= False
         thing = None
@@ -140,11 +144,13 @@ def main():
                 if click.colliderect(button[13]) and comparemode_on == True:
                     buttonclicked = True
                     thing = 13
+                    testbuttonaccess5 = False
                     print("FileCompare1 clicked")
                     pass
                 if click.colliderect(button[14]) and comparemode_on == True:
                     buttonclicked = True
                     thing = 14
+                    testbuttonaccess5 = False
                     print("FileCompare2 clicked")
                 if click.colliderect(button[15]) and testbuttonaccess2 == False and testbuttonaccess5 == False:
                     print("ultra blocked")
@@ -202,18 +208,7 @@ def main():
                     print("Insert Timestamp")
                     buttonclicked= True
                     thing = 12
-                elif click.colliderect(button[13]):
-                    if comparemode_on == True:
-                        buttonclicked = True
-                        thing = 13
-                        print("FileCompare1 clicked")
-                elif click.colliderect(button[14]):
-                    if comparemode_on == True:
-                        buttonclicked = True
-                        thing = 14
-                        print("FileCompare2 clicked")
             if event.type == pygame.QUIT:
-                tempstorage = "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemporaryImageStorage"
                 for path in os.scandir(tempstorage):
                     os.remove(path.path)
                     showitnow1 = False
@@ -383,10 +378,13 @@ def main():
             commandbar_displayer(screen, textdisplay4, "Incorrect Timestamp Format. Char. Removed or Time reset")
             fadeaway2 -= 1
 
+        if fadeaway3 > 0:
+            commandbar_displayer(screen, textdisplay1, "Error: One or more required files not included.")
+            fadeaway3 -= 1
+
         pygame.display.flip()
 
         if thing == 3:
-            tempstorage = "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemporaryImageStorage"
             for path in os.scandir(tempstorage):
                 os.remove(path.path)
             fileinput= tk.Tk()
@@ -419,11 +417,11 @@ def main():
                             if ref > 2:
                                 output = front_page_test_maker(template, thumbnail, VideoTimeammount)
                                 output.save(f"{newername}testVV{ref}{ext}")
-                    if testbuttonaccess1 == True:
                         testbuttonaccess2 = True
                         showitnow2 = True
             if comparemode_on == True:
                 if compare1_img_path == "" or compare2_img_path == "":
+                    fadeaway3 = 20
                     pass
                 else:
                     templname, ext = os.path.splitext(templ_img_path[0])
@@ -444,30 +442,32 @@ def main():
             image_shower(newername, part, ext)
 
         if thing == 9:
-            fileexport = tk.Tk()
-            fileexport.withdraw()
-            exportpath = filedialog.askdirectory(title= "wheres the file going")
-            tempstorage = "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemporaryImageStorage"
-            for path in os.scandir(tempstorage):
-                if exportpath == "":
-                    os.remove(path.path)
-                    pass
-                else:
-                    image_path = path.name
-                    finalplace = os.path.join(exportpath, image_path)
-                    with Image.open(path.path) as done:
-                        done.save(finalplace)
-                    os.remove(path.path)
-            central_img_path = ""
-            compare1_img_path = ""
-            compare2_img_path = ""
-            testbuttonaccess5 = False
-            showitnow3 = False
-            showitnow4 = False
-            showitnow1 = False
+            if os.listdir(tempstorage) == []:
+                fadeaway3 = 20
+                pass
+            else:
+                fileexport = tk.Tk()
+                fileexport.withdraw()
+                exportpath = filedialog.askdirectory(title= "wheres the file going")
+                for path in os.scandir(tempstorage):
+                    if exportpath == "":
+                        os.remove(path.path)
+                        pass
+                    else:
+                        image_path = path.name
+                        finalplace = os.path.join(exportpath, image_path)
+                        with Image.open(path.path) as done:
+                            done.save(finalplace)
+                        os.remove(path.path)
+                central_img_path = ""
+                compare1_img_path = ""
+                compare2_img_path = ""
+                testbuttonaccess5 = False
+                showitnow3 = False
+                showitnow4 = False
+                showitnow1 = False
 
         if thing == 10:
-            tempstorage = "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemporaryImageStorage"
             for path in os.scandir(tempstorage):
                 os.remove(path.path)
             central_img_path = ""
@@ -479,7 +479,6 @@ def main():
             showitnow1 = False
 
         if thing == 11:
-            tempstorage = "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemporaryImageStorage"
             for path in os.scandir(tempstorage):
                 os.remove(path.path)
             central_img_path = ""
@@ -514,7 +513,6 @@ def main():
             print(VideoTimeammount)
 
         if thing == 13 and comparemode_on == True:
-            tempstorage = "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemporaryImageStorage"
             for path in os.scandir(tempstorage):
                 os.remove(path.path)
             fileinput= tk.Tk()
@@ -527,7 +525,6 @@ def main():
                 showitnow3 = False
 
         if thing == 14 and comparemode_on == True:
-            tempstorage = "C:\\Users\\drewm\\OneDrive\\Desktop\\PFDAAssignments\\Youtube-Thumbnail-Viewer\\src\\TemporaryImageStorage"
             for path in os.scandir(tempstorage):
                 os.remove(path.path)
             fileinput= tk.Tk()
